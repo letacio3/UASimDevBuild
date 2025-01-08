@@ -1,0 +1,114 @@
+{
+    "Card": "HTR-1-032",
+    "Effects": [
+        {
+            "Type": "Activate",
+            "State": "Disabled",
+            "Location": "Hand",
+            "Conditions": [
+                {
+                "Trigger": {
+                    "Name": "_t_activate",
+                    "Scope": "self"
+                },
+                "Parameters":
+                    [
+                    {
+                        "Parameter": "my_game_state",
+                        "Scope": "my_board",
+                        "Value": "GamePhase.MAIN_PHASE",
+                        "Compare": "=",
+                        "Compare_mode": "once"
+                    }]
+                }
+                ],
+            "Actions": [
+                {
+                "Method": "e_move_card",
+                "Arguments": {
+                    "Scope": "my_board",
+                    "Target": "self",
+                    "To": "event",
+                    "Callback":{
+                        "Method": "e_target_card",
+                        "Arguments": {
+                            "Scope": "my_ap",
+                            "Message": "Choose an AP card to set to active!",
+                            "Optional": true,
+                            "Requirements": "my_state=card.state.RESTED",
+                            "Callback": {
+                                "Method": "e_switch_card_state",
+                                "Arguments": {
+                                    "Scope": "my_board",
+                                    "Target": "targeted",
+                                    "Value": "card.state.ACTIVE",
+                                    "Callback": {
+                                        "Method": "e_target_card",
+                                        "Arguments": {
+                                            "Scope": "my_ap",
+                                            "Message": "Choose an AP card to set to active!",
+                                            "Optional": true,
+                                            "Requirements": "my_state=card.state.RESTED",
+                                            "Callback": {
+                                                "Method": "e_switch_card_state",
+                                                "Arguments": {
+                                                    "Scope": "my_board",
+                                                    "Target": "targeted",
+                                                    "Value": "card.state.ACTIVE"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                        }
+                     }
+                }
+                },
+                {
+                "Method": "e_move_card",
+                "Arguments": {
+                    "Scope": "my_board",
+                    "Target": "self",
+                    "To": "sideline"
+                    }
+                }
+            ]           
+                } ,
+                {
+                    "Actions": [
+                        {
+                        "Method": "e_move_card",
+                        "Arguments": {
+                            "Scope": "my_board",
+                            "Target": [0,-1], 
+                            "Order": 0,
+                            "To": "life"
+                            }
+                        }
+                    ],
+                    "Conditions": [
+                        {
+                            "Parameters": [
+                                {
+                                "Parameter": "location_has_card_with",
+                                "Arguments": [{
+                                    "Scope": "my_life"
+                                }],
+                                "Scope": "my_board",
+                                "Value": "1",
+                                "Type": "method",
+                                "Compare": "=",
+                                "Compare_mode": "once"
+                                }
+                            ],
+                            "Trigger": {
+                                "Name": "_t_card_triggered",
+                                "Scope": "self"
+                            }
+                        }
+                    ],
+                    "Type": "Trigger"
+                } 
+    ]
+}

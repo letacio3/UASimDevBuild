@@ -1,0 +1,121 @@
+{
+    "Card": "HTR-1-077",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Aux": {
+                            "Arguments": 
+                                [{
+                                    "Not_self": true,
+                                    "Requirements": [],
+                                    "Scope": "my_frontline"
+                                }],
+                            "Method": "location_has_card_with",
+                            "Scale": 1000,
+                            "Scope": "my_board",
+                            "Store": true,
+                            "Value": "temp_max_bp"
+                        },
+                        "Callback": {
+                            "Arguments": {
+                                "Scope": "my_board",
+                                "Target": "targeted",
+                                "To": "sideline"
+                            },
+                            "Method": "e_move_card"
+                        },
+                        "Message": "Sideline a character in OP FL!",
+                        "Optional": true,
+                        "Requirements": "battle_points<=temp_max_bp",
+                        "Scope": "op_frontline",
+                        "Self_target": "no"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "location",
+                            "Scope": "self",
+                            "Value": "card.CardLocation.FRONT_LINE"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Method": "e_switch_card_state",
+                                    "Arguments":{
+                                    "Scope": "my_board",
+                                    "Target": "targeted",
+                                    "Value": "card.state.ACTIVE"}
+                                },
+                                "Raid": false,
+                                "Scope": "targeted",
+                                "Target": "targeted"
+                            },
+                            "Method": "e_play_or_raid"
+                        },
+                        "Message": "Play a card from your hand!",
+                        "Optional": true,
+                        "Requirements": [
+                            "my_card.cardType=Character",
+                            "my_card.color1=Green",
+                            "ecost<=2",
+                            "apcost<=1"
+                        ],
+                        "Scope": "hand"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Arguments": [
+                                {
+                                    "Requirements": [
+                                        "my_card.cardType=Character",
+                                        "my_card.color1=Green",
+                                        "ecost<=2",
+                                        "apcost<=1"
+                                    ],
+                                    "Scope": "my_sideline"
+                                }
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "location_has_card_with",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 1
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }
+    ]
+}

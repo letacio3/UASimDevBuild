@@ -1,0 +1,90 @@
+{ 
+	"Card": "HTR-1-016",
+	"Effects": [{
+		"Type": "Activate",
+        "State": "Disabled",
+        "Location": "Board",
+		"Conditions": [
+			{
+			"Trigger": {
+				"Name": "_t_activate",
+				"Scope": "self"
+			},
+			"Parameters":
+				[
+				{
+				"Parameter": "my_game_state",
+				"Scope": "my_board",
+				"Value": "GamePhase.MAIN_PHASE",
+				"Compare": "=",
+				"Compare_mode": "once"
+				},
+                {
+                "Parameter": "my_state",
+                "Scope": "self",
+                "Value": "card.state.ACTIVE",
+                "Compare": "=",
+                "Compare_mode": "once"
+                }]
+			}
+			],
+		"Actions": [
+			{
+            "Method": "e_switch_card_state",
+            "Arguments": {
+                "Scope": "self",
+                "Value": "card.state.RESTED",
+                "Callback":{
+                    "Method": "e_move_card",
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "targeted",
+                        "To": "facedown",
+                        "From": "deck_top"
+                        }
+                    }
+                    }
+                    }
+			]
+	},
+    {
+        "Actions": [
+            {
+            "Method": "e_look_top_and_move",
+            "Arguments": {
+                "Scope": "self",
+                "Target": "self",
+                "Destination": "my_sideline",
+                "Choose": "No",
+                "Order": [-1],
+                "Draw": {
+                    "Value": 1
+                }
+                }
+            }
+                    
+        ],
+        "Conditions": [
+            {
+                "Parameters": [{
+                    "Parameter": "location_has_card_with",
+                    "Arguments": [{
+                        "Scope": "my_facedown"
+                    }],
+                    "Scope": "my_board",
+                    "Target": "self",
+                    "Value": "1",
+                    "Type": "method",
+                    "Compare": ">=",
+                    "Compare_mode": "once"
+                    }],
+                "Trigger": {
+                    "Name": "_t_when_sidelined",
+                    "Scope": "self"
+                }
+            }
+        ],
+        "Type": "Action"
+    }
+	]
+}

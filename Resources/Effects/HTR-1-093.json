@@ -1,0 +1,136 @@
+{
+    "Card": "HTR-1-093",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Value": 1
+                    },
+                    "Method": "e_draw_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Scope": "my_board",
+                                "Target": "self",
+                                "Value": 1
+                            },
+                            "Method": "e_draw_card"
+                        },
+                        "Property": "once_per_turn",
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "Until": {
+                            "Scope": "my_board",
+                            "Trigger": "_on_end_phase_start"
+                        },
+                        "Value": "+1"
+                    },
+                    "Method": "e_buff"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "once_per_turn",
+                            "Scope": "self",
+                            "Value": 0
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_attacked_and_won",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Callback": {
+                                            "Arguments": {
+                                                "Property": "must_block",
+                                                "Scope": "my_board",
+                                                "Target": "self",
+                                                "Until": {
+                                                    "Scope": "op_board",
+                                                    "Trigger": "_on_end_phase_start"
+                                                },
+                                                "Value": "+1"
+                                            },
+                                            "Method": "e_buff"
+                                        },
+                                        "Property": "once_per_turn_2",
+                                        "Scope": "my_board",
+                                        "Target": "self",
+                                        "Until": {
+                                            "Scope": "my_board",
+                                            "Trigger": "_on_end_phase_start"
+                                        },
+                                        "Value": "+1"
+                                    },
+                                    "Method": "e_buff"
+                                },
+                                "Scope": "my_board",
+                                "Target": "targeted",
+                                "Value": "card.state.RESTED"
+                            },
+                            "Method": "e_switch_card_state",
+                            "Scope": "my_board"
+                        },
+                        "Message": "Choose an AP card to set to REST!",
+                        "Scope": "my_ap",
+                        "Self_target": "no"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "once_per_turn_2",
+                            "Scope": "self",
+                            "Value": 0
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_activate",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Location": "Board",
+            "State": "Disabled",
+            "Type": "Activate"
+        }
+    ]
+}

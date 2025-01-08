@@ -1,0 +1,143 @@
+{
+    "Card": "HTR1-027",
+    "Effects": [
+        {
+            "Type": "Action",
+            "Conditions": [
+                {
+                "Trigger": {
+                    "Name": "_t_when_played",
+                    "Scope": "self"
+                },
+                "Parameters":
+                    []
+                }
+                ],
+            "Actions": [
+                {
+                "Method": "e_switch_card_state",
+                "Arguments": {
+                    "Scope": "self",
+                    "Value": "card.state.ACTIVE"
+                    }
+                }
+                ]
+        },
+        {
+            "Type": "Activate",
+            "State": "Disabled",
+            "Location": "Board",
+            "Conditions": [
+                {
+                "Trigger": {
+                    "Name": "_t_activate",
+                    "Scope": "self"
+                },
+                "Parameters":
+                    [{
+                    "Parameter": "my_game_state",
+                    "Scope": "my_board",
+                    "Value": "GamePhase.MAIN_PHASE",
+                    "Compare": "=",
+                    "Compare_mode": "once"
+                    },
+                    {
+                    "Parameter": "my_state",
+                    "Scope": "self",
+                    "Value": "card.state.ACTIVE",
+                    "Compare": "=",
+                    "Compare_mode": "once"
+                    }]
+                }
+                ],
+            "Actions": [
+                {
+                "Method": "e_switch_card_state",
+                "Arguments": {
+                    "Scope": "self",
+                    "Value": "card.state.RESTED",
+                    "Callback": {
+                        "Method": "e_target_card",
+                        "Arguments": {
+                            "Scope": "my_board",
+                            "Message": "Choose a character",
+                            "Optional": true,
+                            "Requirements": ["my_card.cardType=Character"],
+                            "Store": true,
+                            "Value": "temp_target",
+                            "Callback": {
+                                "Method": "e_reveal_card",
+                                "Arguments": {
+                                    "Scope": "my_board",
+                                    "Target": [0, -1],
+                                    "Callback": {
+                                        "Method": "e_test_condition",
+                                        "Arguments": {
+                                            "Parameter": "ecost",
+                                            "Scope": "my_board",
+                                            "Target": "targeted",
+                                            "Value": "2",
+                                            "Compare": ">=",
+                                            "Compare_mode": "once",
+                                            "Callback_false": {
+                                                "Method": "e_move_card",
+                                                "Arguments": {
+                                                    "Scope": "my_board",
+                                                    "Target": "temp_target", 
+                                                    "To": "sideline"
+                                                }
+                                            },
+                                            "Callback":{
+                                                "Method": "e_draw_card",
+                                                "Arguments": {
+                                                    "Scope": "my_board",
+                                                    "Value": 1,
+                                                    "Callback": {
+                                                        "Method": "e_buff",
+                                                        "Arguments": {
+                                                            "Scope": "my_board",
+                                                            "Target": "temp_target",
+                                                            "Property": "battle_points",
+                                                            "Value": "+1000",
+                                                            "Until": {
+                                                                "Trigger": "_on_end_phase_start",
+                                                                "Scope": "my_board"
+                                                        }
+                                                    }	
+                                                }
+                                            }
+                                        }       
+                                    }
+                                 }
+                            }
+                        }
+                    }
+                }
+            }           
+                }
+            ]
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "hand"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }
+    ]
+}

@@ -1,0 +1,1 @@
+{"Card":"HTR-1-038","Effects":[{"Actions":[{"Arguments":{"Scope":"my_board","Value":1},"Method":"e_draw_card"}],"Conditions":[{"Parameters":[],"Trigger":{"Name":"_t_when_played","Scope":"self"}}],"Type":"Action"}]}

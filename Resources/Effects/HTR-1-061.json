@@ -1,0 +1,104 @@
+{
+    "Card": "HTR-1-061",
+    "Effects": [
+        {
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_game_state",
+                            "Scope": "my_board",
+                            "Value": "GamePhase.MAIN_PHASE"
+                        },
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_state",
+                            "Scope": "self",
+                            "Value": "card.state.ACTIVE"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_activate",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Callback": {
+                                            "Arguments": {
+                                                "Callback": {
+                                                    "Arguments": {
+                                                        "Callback_false": {
+                                                            "Arguments": {
+                                                                "Callback": {
+                                                                    "Arguments": {
+                                                                        "Scope": "my_board",
+                                                                        "Target": "targeted",
+                                                                        "To": "sideline"
+                                                                    },
+                                                                    "Method": "e_move_card"
+                                                                },
+                                                                "Message": "Please discard a card!",
+                                                                "Optional": true,
+                                                                "Scope": "my_hand",
+                                                                "Self_target": "no",
+                                                                "Store": true
+                                                            },
+                                                            "Method": "e_target_card"
+                                                        },
+                                                        "Compare": ">=",
+                                                        "Compare_mode": "once",
+                                                        "Parameter": "battle_points",
+                                                        "Scope": "my_board",
+                                                        "Target": "targeted",
+                                                        "Value": 3000
+                                                    },
+                                                    "Method": "e_test_condition"
+                                                },
+                                                "Scope": "my_board",
+                                                "Target": "targeted",
+                                                "Value": 1
+                                            },
+                                            "Method": "e_draw_card"
+                                        },
+                                        "Scope": "my_board",
+                                        "Target": "targeted",
+                                        "Value": "card.state.RESTED"
+                                    },
+                                    "Method": "e_switch_card_state"
+                                },
+                                "Message": "Choose a character",
+                                "Optional": true,
+                                "Requirements": [
+                                    "my_card.cardType=Character",
+                                    "my_state=card.state.ACTIVE"
+                                ],
+                                "Scope": "my_board",
+                                "Self_target": "no",
+                                "Store": true,
+                                "Value": "temp_target"
+                            },
+                            "Method": "e_target_card"
+                        },
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "Value": "card.state.RESTED"
+                    },
+                    "Method": "e_switch_card_state"
+                }
+            ],
+            "Location": "Board",
+            "State": "Disabled",
+            "Type": "Activate"
+        }
+    ]
+}

@@ -1,0 +1,147 @@
+{
+    "Card": "HTR-1-031",
+    "Effects": [
+        {
+            "Type": "Activate",
+            "State": "Disabled",
+            "Location": "Hand",
+            "Conditions": [
+                {
+                "Trigger": {
+                    "Name": "_t_activate",
+                    "Scope": "self"
+                },
+                "Parameters":
+                    [{
+                        "Parameter": "location_has_card_with",
+                        "Arguments": [{
+                            "Scope": "op_frontline", 
+                            "Requirements": ["my_card.cardType=Character"]
+                        }],
+                        "Scope": "my_board",
+                        "Value": "1",
+                        "Type": "method",
+                        "Compare": ">=",
+                        "Compare_mode": "once"
+                    },
+                    {
+                        "Parameter": "my_game_state",
+                        "Scope": "my_board",
+                        "Value": "GamePhase.MAIN_PHASE",
+                        "Compare": "=",
+                        "Compare_mode": "once"
+                    }]
+                }
+                ],
+            "Actions": [
+                {
+                "Method": "e_move_card",
+                "Arguments": {
+                    "Scope": "my_board",
+                    "Target": "self",
+                    "To": "event",
+                    "Callback":{
+                        "Method": "e_test_condition",
+                        "Arguments": {
+                            "Parameter": "location_has_card_with",
+                            "Arguments": [{
+                                "Scope": "my_board", 
+                                "Requirements": ["my_card.cardName=Gon Freecss"]
+                            }],
+                            "Scope": "my_board",
+                            "Value": "1",
+                            "Type": "method",
+                            "Target": "self",
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Callback": {
+                                "Method": "e_target_card",
+                                "Arguments": {
+                                    "Scope": "op_frontline",
+                                    "Message": "Sideline a character in OP FL with BP <= 5000!",
+                                    "Optional": true,
+                                    "Requirements": "battle_points<=5000",
+                                    "Callback": {
+                                        "Method": "e_move_card",
+                                        "Arguments": {
+                                            "Scope": "op_board",
+                                            "Target": "targeted", 
+                                            "To": "sideline"
+                                        }
+                                    }
+                                }
+                            },
+                            "Callback_false": {
+                                "Method": "e_target_card",
+                                "Arguments": {
+                                    "Scope": "op_frontline",
+                                    "Message": "Sideline a character in OP FL with BP <= 3000!",
+                                    "Optional": true,
+                                    "Requirements": "battle_points<=3000",
+                                    "Callback": {
+                                        "Method": "e_move_card",
+                                        "Arguments": {
+                                            "Scope": "op_board",
+                                            "Target": "targeted", 
+                                            "To": "sideline"
+                                        }
+                                    }
+                                }
+                            } 
+                        }}}
+                },
+                {
+                "Method": "e_move_card",
+                "Arguments": {
+                    "Scope": "my_board",
+                    "Target": "self",
+                    "To": "sideline"
+                    }
+                }
+            ]           
+                } ,
+                {
+                    "Actions": [
+                        {
+                        "Method": "e_target_card",
+                        "Arguments": {
+                            "Scope": "op_frontline",
+                            "Message": "Sideline an Opponent Character in FL!",
+                            "Optional": true,
+                            "Callback": {
+                                "Method": "e_move_card",
+                                "Arguments": {
+                                    "Scope": "op_board",
+                                    "Target": "targeted", 
+                                    "To": "sideline"
+                                    }
+                                    }
+                            }
+                        }
+                    ],
+                    "Conditions": [
+                        {
+                            "Parameters": [
+                                {
+                                "Parameter": "location_has_card_with",
+                                "Arguments": [{
+                                    "Scope": "op_frontline", 
+                                    "Requirements": ["my_card.cardType=Character"]
+                                }],
+                                "Scope": "my_board",
+                                "Value": "1",
+                                "Type": "method",
+                                "Compare": ">=",
+                                "Compare_mode": "once"
+                                }
+                            ],
+                            "Trigger": {
+                                "Name": "_t_card_triggered",
+                                "Scope": "self"
+                            }
+                        }
+                    ],
+                    "Type": "Trigger"
+                } 
+    ]
+}

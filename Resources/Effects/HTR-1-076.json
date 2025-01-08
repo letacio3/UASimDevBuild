@@ -1,0 +1,57 @@
+{
+    "Card": "HTR-1-076",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Choose": "No",
+                        "Destination": "my_deck",
+                        "Draw": {
+                            "Callback": {
+                                "Arguments": {
+                                    "Callback": {
+                                        "Arguments": {
+                                            "Scope": "my_board",
+                                            "Target": "targeted",
+                                            "To": "sideline"
+                                        },
+                                        "Method": "e_move_card"
+                                    },
+                                    "Message": "Please discard a card!",
+                                    "Scope": "my_hand"
+                                },
+                                "Method": "e_target_card"
+                            },
+                            "Names": [
+                                "Killua Zoldyck",
+                                "Kurapika",
+                                "Leorio"
+                            ],
+                            "Requirements": [
+                                "ecost<=4"
+                            ],
+                            "Value": 1
+                        },
+                        "Order": [
+                            0
+                        ],
+                        "Scope": "my_board",
+                        "Value": 5
+                    },
+                    "Method": "e_look_top_and_move"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

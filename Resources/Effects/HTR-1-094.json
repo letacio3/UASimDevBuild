@@ -1,0 +1,159 @@
+{
+    "Card": "HTR-1-094",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "hand"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Property": "battle_points",
+                                        "Scope": "op_board",
+                                        "Target": "targeted",
+                                        "Until": {
+                                            "Scope": "my_board",
+                                            "Trigger": "_on_end_phase_start"
+                                        },
+                                        "Value": -1000
+                                    },
+                                    "Method": "e_buff"
+                                },
+                                "Message": "Give -1000 BP to an Opponent Character with >= 1500 BP!",
+                                "Optional": true,
+                                "Requirements": [
+                                    "my_card.cardType=Character"
+                                ],
+                                "Scope": "op_board",
+                                "Self_target": "no"
+                            },
+                            "Method": "e_target_card"
+                        },
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "Value": "card.state.RESTED"
+                    },
+                    "Method": "e_switch_card_state",
+                    "Scope": "my_board"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_game_state",
+                            "Scope": "my_board",
+                            "Value": "GamePhase.MAIN_PHASE"
+                        },
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_state",
+                            "Scope": "self",
+                            "Value": "card.state.ACTIVE"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_activate",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Location": "Board",
+            "State": "Disabled",
+            "Type": "Activate"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Scope": "my_board",
+                                "Target": "self",
+                                "Value": "card.state.ACTIVE"
+                            },
+                            "Method": "e_switch_card_state",
+                            "Scope": "my_board"
+                        },
+                        "Property": "once_per_turn",
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "Until": {
+                            "Scope": "my_board",
+                            "Trigger": "_on_end_phase_start"
+                        },
+                        "Value": "+1"
+                    },
+                    "Method": "e_buff"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_game_state",
+                            "Scope": "my_board",
+                            "Value": "GamePhase.MAIN_PHASE"
+                        },
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "once_per_turn",
+                            "Scope": "self",
+                            "Value": 0
+                        },
+                        {
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "battle_points",
+                            "Scope": "self",
+                            "Value": 4000
+                        },
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_state",
+                            "Scope": "self",
+                            "Value": "card.state.RESTED"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_activate",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Location": "Board",
+            "State": "Disabled",
+            "Type": "Activate"
+        }
+    ]
+}

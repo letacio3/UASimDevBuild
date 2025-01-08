@@ -1,0 +1,85 @@
+{
+    "Card": "HTR1-018",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Scope": "my_board",
+                                        "Target": "targeted",
+                                        "To": "sideline"
+                                    },
+                                    "Method": "e_move_card"
+                                },
+                                "Message": "Please discard a card!",
+                                "Scope": "my_hand"
+                            },
+                            "Method": "e_target_card"
+                        },
+                        "Scope": "my_board",
+                        "Value": 1
+                    },
+                    "Method": "e_draw_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_attacking",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        },
+        {
+            "Actions": [
+                {
+                "Method": "e_target_card",
+                "Arguments": {
+                    "Scope": "op_frontline",
+                    "Message": "Bounce an Opponent Character with <= 3500 BP!",
+                    "Optional": true,
+                    "Requirements": "battle_points<=3500",
+                    "Callback": {
+                        "Method": "e_move_card",
+                        "Arguments": {
+                            "Scope": "op_frontline",
+                            "Target": "targeted", 
+                            "To": "hand"
+                            }
+                            }
+                    }
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                        "Parameter": "location_has_card_with",
+                        "Arguments": [{
+                            "Scope": "op_frontline", 
+                            "Requirements": ["battle_points<=3500", "my_card.cardType=Character"]
+                        }],
+                        "Scope": "my_board",
+                        "Value": "1",
+                        "Type": "method",
+                        "Compare": ">=",
+                        "Compare_mode": "once"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }           
+    ]
+}

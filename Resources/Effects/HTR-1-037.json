@@ -1,0 +1,85 @@
+{
+    "Card": "HTR1-037",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Scope": "my_board",
+                                        "Target": "self"
+                                    },
+                                    "Method": "e_raid"
+                                },
+                                "Compare": ">=",
+                                "Compare_mode": "once",
+                                "Parameter": "energy_generated_count",
+                                "Scope": "my_board",
+                                "Target": "self",
+                                "Value": 4
+                            },
+                            "Method": "e_test_condition"
+                        },
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "hand"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "From": "deck_top",
+                                "Order": 0,
+                                "Scope": "my_board",
+                                "Target": "targeted",
+                                "Trigger": "_t_when_played"
+                            },
+                            "Method": "e_activate_card_trigger"
+                        },
+                        "Message": "Choose a card to activate its When Played Effect!",
+                        "Optional": true,
+                        "Requirements": [
+                            "my_card.cardType=Character",
+                            "tag=Phantom Troupe",
+                            "my_card.cardName!=Chrollo"
+                        ],
+                        "Scope": "my_board",
+                        "Self_target": "no",
+                        "Store": true,
+                        "Value": "temp_target"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

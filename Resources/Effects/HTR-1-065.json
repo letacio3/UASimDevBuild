@@ -1,0 +1,157 @@
+{
+    "Card": "HTR-1-065",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Property": "battle_points",
+                                        "Scope": "op_board",
+                                        "Target": "targeted",
+                                        "Until": {
+                                            "Scope": "my_board",
+                                            "Trigger": "_on_end_phase_start"
+                                        },
+                                        "Value": -3000
+                                    },
+                                    "Method": "e_buff"
+                                },
+                                "Message": "Give -3000 BP to an Opponent Character in FL!",
+                                "Optional": true,
+                                "Requirements": [],
+                                "Scope": "op_frontline"
+                            },
+                            "Method": "e_target_card"
+                        },
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "event"
+                    },
+                    "Method": "e_move_card"
+                },
+                {
+                    "Arguments": {
+                        "Arguments" : [    
+                        {
+                            "Requirements": [
+                                "my_card.cardName=Chrollo"
+                            ],
+                            "Scope": "my_board"
+                        }],
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Scope": "my_board",
+                                        "Target": "targeted",
+                                        "Trigger": "_t_when_played"
+                                    },
+                                    "Method": "e_activate_card_trigger"
+                                },
+                                "Message": "Choose a card to activate its When Played Effect!",
+                                "Optional": true,
+                                "Requirements": [
+                                    "my_card.cardType=Character",
+                                    "tag=Phantom Troupe",
+                                    "my_card.cardName!=Chrollo",
+                                    "ecost<=3"
+                                ],
+                                "Scope": "my_board",
+                                "Self_target": "no",
+                                "Store": true,
+                                "Value": "temp_target"
+                            },
+                            "Method": "e_target_card"
+                        },
+                        "Compare": ">=",
+                        "Compare_mode": "once",
+                        "Parameter": "location_has_card_with",
+                        "Scope": "my_board",
+                        "Type": "method",
+                        "Value": 1
+                    },
+                    "Method": "e_test_condition"
+                },
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "sideline"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_game_state",
+                            "Scope": "my_board",
+                            "Value": "GamePhase.MAIN_PHASE"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_activate",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Location": "Hand",
+            "State": "Disabled",
+            "Type": "Activate"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Scope": "op_board",
+                                "Target": "targeted",
+                                "To": "sideline"
+                            },
+                            "Method": "e_move_card"
+                        },
+                        "Message": "Sideline an Opponent Character in FL!",
+                        "Optional": true,
+                        "Scope": "op_frontline"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Arguments": [
+                                {
+                                    "Requirements": [
+                                        "my_card.cardType=Character"
+                                    ],
+                                    "Scope": "op_frontline"
+                                }
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "location_has_card_with",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 1
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }
+    ]
+}

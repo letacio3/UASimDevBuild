@@ -1,0 +1,118 @@
+{
+    "Card": "HTR1-028",
+    "Effects": [
+        {
+            "Type": "Activate",
+            "State": "Disabled",
+            "Location": "Hand",
+            "Conditions": [
+                {
+                "Trigger": {
+                    "Name": "_t_activate",
+                    "Scope": "self"
+                },
+                "Parameters":
+                    []
+                }
+                ],
+            "Actions": [
+                {
+                "Method": "e_move_card",
+                "Arguments": {
+                    "Scope": "my_board",
+                    "Target": "self",
+                    "To": "event",
+                    "Callback":{
+                        "Method": "e_target_card",
+                        "Arguments": {
+                            "Scope": "field",
+                            "Message": "Unraid a character!",
+                            "Optional": true,
+                            "Cancel_continue": true,
+                            "Requirements": "card_raiding=true",
+                            "Callback": {
+                                "Method": "e_unraid",
+                                "Arguments": {
+                                    "Scope": "targeted",
+                                    "Target": "targeted", 
+                                    "To": "sideline"
+                                }
+                            }
+                        }
+                 }  }
+                },
+                {
+                    "Method": "e_draw_card",
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Value": 1,
+                        "Callback": {
+                            "Method": "e_move_card",
+                            "Arguments": {
+                                "Scope": "my_board",
+                                "Target": "self",
+                                "To": "sideline"
+                        }
+                        }
+                    }
+                }
+            ]           
+                } ,
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Property": "battle_points",
+                                        "Scope": "my_board",
+                                        "Target": "targeted",
+                                        "Until": {
+                                            "Scope": "op_board",
+                                            "Trigger": "_on_end_phase_start"
+                                        },
+                                        "Value": "+3000"
+                                    },
+                                    "Method": "e_buff"
+                                },
+                                "Scope": "my_board",
+                                "Target": "targeted",
+                                "Value": "card.state.ACTIVE"
+                            },
+                            "Method": "e_switch_card_state"
+                        },
+                        "Message": "Choose a card to switch to active and give +3000 BP!",
+                        "Requirements": "",
+                        "Scope": "my_board",
+                        "Self_target": "no"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Arguments": [
+                                "my_board"
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "number_of_cards",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": "1"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }
+    ]
+}

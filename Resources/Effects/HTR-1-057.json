@@ -1,0 +1,138 @@
+{
+    "Card": "HTR-1-057",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Property": "battle_points",
+                                        "Scope": "my_board",
+                                        "Target": "targeted",
+                                        "Until": {
+                                            "Scope": "op_board",
+                                            "Trigger": "_on_end_phase_start"
+                                        },
+                                        "Value": "+3000"
+                                    },
+                                    "Method": "e_buff"
+                                },
+                                "Scope": "my_board",
+                                "Target": "targeted",
+                                "Value": "card.state.ACTIVE"
+                            },
+                            "Method": "e_switch_card_state"
+                        },
+                        "Message": "Choose a card to switch to active and give +3000 BP!",
+                        "Scope": "my_board",
+                        "Self_target": "no"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Arguments": [
+                                "my_board"
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "number_of_cards",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 1
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Cancel_continue": true,
+                                "Callback": {
+                                    "Arguments": {
+                                        "Callback": {
+                                            "Arguments": {
+                                                "Scope": "my_board",
+                                                "Target": "self",
+                                                "To": "removal"
+                                            },
+                                            "Method": "e_move_card"
+                                        },
+                                        "Scope": "op_board",
+                                        "Target": "targeted",
+                                        "To": "sideline"
+                                    },
+                                    "Method": "e_move_card"
+                                },
+                                "Message":"Sideline a card with BP <= 4000 in OP FL!",
+                                "Optional": true,
+                                "Requirements": [
+                                    "battle_points<=4000",
+                                    "my_card.cardType=Character"
+                                ],
+                                "Scope": "op_frontline",
+                                "Self_target": "no",
+                                "Store": true,
+                                "Value": "temp_target"
+                            },
+                            "Method": "e_target_card"
+                        },
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "Value": "card.state.RESTED"
+                    },
+                    "Method": "e_switch_card_state"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_game_state",
+                            "Scope": "my_board",
+                            "Value": "GamePhase.MAIN_PHASE"
+                        },
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "location",
+                            "Scope": "self",
+                            "Value": "card.CardLocation.FRONT_LINE"
+                        },
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_state",
+                            "Scope": "self",
+                            "Value": "card.state.ACTIVE"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_activate",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Location": "Board",
+            "State": "Disabled",
+            "Type": "Activate"
+        }
+    ]
+}

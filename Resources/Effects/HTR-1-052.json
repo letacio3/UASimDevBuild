@@ -1,0 +1,33 @@
+{
+	"Card": "HTR-1-052",
+	"Effects": [{
+		"Type": "Action",
+		"Conditions": [
+			{
+			"Trigger": {
+				"Name": "_t_when_sidelined",
+				"Scope": "self"
+			},
+			"Parameters":
+				[]
+			}
+			],
+		"Actions": [
+			{
+            "Method": "e_look_top_and_move",
+            "Arguments": {
+                "Scope": "my_board",
+                "Destination": "my_deck",
+                "Choose": "No",
+                "Order": [0],
+                "Value": 3,
+                "Draw": {
+                    "Value": 1,
+                    "Tags": ["Zoldyck Family"]
+                }
+                }
+			}
+			]
+	},{}
+	]
+}

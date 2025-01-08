@@ -1,0 +1,48 @@
+{
+    "Card": "BLC1-047",
+    "Effects": [
+        {
+            "Effect": "Missing"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Scope": "my_board",
+                                        "Target": "self"
+                                    },
+                                    "Method": "e_raid"
+                                },
+                                "Compare": ">=",
+                                "Compare_mode": "once",
+                                "Parameter": "energy_generated_count",
+                                "Scope": "my_board",
+                                "Target": "self",
+                                "Value": "4"
+                            },
+                            "Method": "e_test_condition"
+                        },
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "hand"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }
+    ]
+}

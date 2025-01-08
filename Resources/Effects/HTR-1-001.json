@@ -1,0 +1,49 @@
+{
+	"Card": "HTR-1-001",
+	"Effects": [{
+		"Type": "Action",
+		"Conditions": [
+			{
+			"Trigger": {
+				"Name": "_t_when_played",
+				"Scope": "self"
+			},
+			"Parameters":
+				[ {
+				"Parameter": "location_has_card_with",
+				"Arguments": [{
+					"Scope": "op_board", 
+					"Requirements": ["my_card.cardType=Site"]
+				}],
+				"Scope": "my_board",
+				"Value": "1",
+				"Type": "method",
+				"Compare": ">=",
+				"Compare_mode": "once"
+				}]
+			}
+			],
+		"Actions": [
+			{
+			"Method": "e_target_card",
+			"Arguments": {
+				"Scope": "op_board",
+				"Message": "Please target a site on your opponent board to bottom deck!",
+				"Requirements": ["my_card.cardType=Site"],
+				"Callback": {
+					"Method": "e_move_card",
+					"Arguments": {
+						"Scope": "op_board",
+						"Target": "targeted", 
+						"To": "deck",
+						"Order": 0
+						}
+						}
+				}
+			}
+				
+		]
+	},
+	{}
+	]
+}

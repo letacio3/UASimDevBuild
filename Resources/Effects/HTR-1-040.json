@@ -1,0 +1,59 @@
+{
+    "Card": "HTR-1-040",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Property": "battle_points",
+                                "Scope": "op_frontline",
+                                "Target": "targeted",
+                                "Until": {
+                                    "Scope": "my_board",
+                                    "Trigger": "_on_end_phase_start"
+                                },
+                                "Value": -1000
+                            },
+                            "Method": "e_buff"
+                        },
+                        "Cancel_continue": true,
+                        "Message": "Give -1000 BP to an Opponent Character in FL!",
+                        "Optional": true,
+                        "Requirements": [],
+                        "Scope": "op_frontline",
+                        "Store": true,
+                        "Value": "temp_target"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Arguments": [
+                                {
+                                    "Requirements": ["tag=Phantom Troupe"],
+                                    "Scope": "my_board"
+                                }
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "location_has_card_with",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 3
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

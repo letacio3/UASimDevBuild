@@ -1,0 +1,97 @@
+{
+    "Card": "HTR1-026",
+    "Max_in_deck": 3,
+    "Effects": [
+        {
+            "Type": "Continuous",
+            "State": "Disabled",
+            "Conditions": [
+                {
+                "Trigger": {},
+                "Parameters":
+                    [
+                    {
+                    "Parameter": "max_hand_size",
+                    "Scope": "my_board",
+                    "Value": "8",
+                    "Compare": "=",
+                    "Ignore_disable": true,
+                    "Compare_mode": "once"
+                    },
+                    {
+                    "Parameter": "location",
+                    "Scope": "self",
+                    "Value": "card.CardLocation.ENERGY_LINE",
+                    "Compare": "=",
+                    "Compare_mode": "once"
+                    }
+                    ]
+                }
+                ],
+            "Actions": [
+                {
+                "Method": "e_buff",
+                "Arguments": {
+                    "Scope": "my_board",
+                    "Target": "my_board",
+                    "Property": "max_hand_size",
+                    "Value": "+7"
+                    },
+                "Disable": {
+                    "Method": "e_buff",
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "my_board",
+                        "Property": "max_hand_size",
+                        "Value": "-7"
+                        }
+                }
+                }]
+        },
+        {
+            "Type": "Action",
+            "Conditions": [
+                {
+                "Trigger": {
+                    "Name": "_t_when_played",
+                    "Scope": "self"
+                },
+                "Parameters":
+                    []
+                }
+                ],
+            "Actions": [
+                {
+                "Method": "e_draw_card",
+                "Arguments": {
+                    "Scope": "my_board",
+                    "Value": 1
+                }
+                }
+                    
+            ]
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "hand"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }
+    ]
+}

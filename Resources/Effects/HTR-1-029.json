@@ -1,0 +1,122 @@
+{
+    "Card": "HTR-1-029",
+    "Max_in_deck": 3,
+    "Effects": [
+        {
+            "Type": "Activate",
+            "State": "Disabled",
+            "Location": "Hand",
+            "Conditions": [
+                {
+                "Trigger": {
+                    "Name": "_t_activate",
+                    "Scope": "self"
+                },
+                "Parameters":
+                    [{
+                        "Parameter": "my_game_state",
+                        "Scope": "my_board",
+                        "Value": "GamePhase.MAIN_PHASE",
+                        "Compare": "=",
+                        "Compare_mode": "once"
+                    },
+                    {
+                        "Parameter": "location_has_card_with",
+                        "Arguments": [{
+                                "Scope": "my_sideline",
+                                "Requirements": "my_card.cardType=Character"
+                            }],
+                        "Scope": "my_board",
+                        "Value": "1",
+                        "Type": "method",
+                        "Compare": ">=",
+                        "Compare_mode": "once"
+                    }]
+                }
+                ],
+            "Actions": [
+                {
+                "Method": "e_move_card",
+                "Arguments": {
+                    "Scope": "my_board",
+                    "Target": "self",
+                    "To": "event",
+                    "Callback":{
+                        "Method": "e_target_card",
+                        "Arguments": {
+                            "Scope": "sideline",
+                            "Message": "Play a card from your sideline!",
+                            "Optional": true,
+                            "Aux": {
+                                "Method": "get_generated_enery",
+                                "Scope": "my_board",
+                                "Store": true,
+                                "Value": "temp_egen"
+                            },
+                            "Requirements": ["egen<=temp_egen","my_card.cardType=Character", "apcost=1"],
+                            "Callback": {
+                                "Method": "e_play_or_raid",
+                                "Arguments": {
+                                    "Scope": "targeted",
+                                    "Target": "targeted",
+                                    "Raid": true
+                                }
+                            }
+                        }
+                 }  }
+                },
+                {
+                "Method": "e_move_card",
+                "Arguments": {
+                    "Scope": "my_board",
+                    "Target": "self",
+                    "To": "sideline"
+                    }
+                }
+            ]           
+                },
+        {
+            "Actions": [
+                {
+                "Method": "e_target_card",
+                "Arguments": {
+                    "Scope": "op_frontline",
+                    "Message": "Sideline an Opponent Character in FL!",
+                    "Optional": true,
+                    "Callback": {
+                        "Method": "e_move_card",
+                        "Arguments": {
+                            "Scope": "op_board",
+                            "Target": "targeted", 
+                            "To": "sideline"
+                            }
+                            }
+                    }
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                        "Parameter": "location_has_card_with",
+                        "Arguments": [{
+                            "Scope": "op_frontline", 
+                            "Requirements": ["my_card.cardType=Character"]
+                        }],
+                        "Scope": "my_board",
+                        "Value": "1",
+                        "Type": "method",
+                        "Compare": ">=",
+                        "Compare_mode": "once"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }           
+    ]
+}

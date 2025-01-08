@@ -1,0 +1,79 @@
+{
+    "Card": "HTR1-045",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Property": "battle_points",
+                                        "Scope": "op_board",
+                                        "Target": "targeted",
+                                        "Until": {
+                                            "Scope": "my_board",
+                                            "Trigger": "_on_end_phase_start"
+                                        },
+                                        "Value": -3000
+                                    },
+                                    "Method": "e_buff"
+                                },
+                                "Message": "Give -3000 BP to an Opponent Character in FL!",
+                                "Optional": true,
+                                "Scope": "op_frontline",
+                                "Self_target": "no"
+                            },
+                            "Method": "e_target_card"
+                        },
+                        "Callback_false": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Property": "battle_points",
+                                        "Scope": "op_board",
+                                        "Target": "targeted",
+                                        "Until": {
+                                            "Scope": "my_board",
+                                            "Trigger": "_on_end_phase_start"
+                                        },
+                                        "Value": -2000
+                                    },
+                                    "Method": "e_buff"
+                                },
+                                "Message": "Give -2000 BP to an Opponent Character in FL!",
+                                "Optional": true,
+                                "Scope": "op_frontline",
+                                "Self_target": "no"
+                            },
+                            "Method": "e_target_card"
+                        },
+                        "Arguments": [{
+                            "Scope": "my_life"
+                        }],
+                        "Compare": "<=",
+                        "Compare_mode": "once",
+                        "Parameter": "location_has_card_with",
+                        "Scope": "my_board",
+                        "Type": "method",
+                        "Target": "self",
+                        "Value": 4
+                    },
+                    "Method": "e_test_condition"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger":
+                    {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

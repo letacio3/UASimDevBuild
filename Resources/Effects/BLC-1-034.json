@@ -1,0 +1,62 @@
+{
+    "Card": "BLC1-034",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Scope": "my_board",
+                                        "Target": "targeted",
+                                        "To": "sideline"
+                                    },
+                                    "Method": "e_move_card"
+                                },
+                                "Message": "Please discard a card!",
+                                "Scope": "my_hand"
+                            },
+                            "Method": "e_target_card"
+                        },
+                        "Scope": "my_board",
+                        "Value": 1
+                    },
+                    "Method": "e_draw_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Value": 1
+                    },
+                    "Method": "e_draw_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }
+    ]
+}

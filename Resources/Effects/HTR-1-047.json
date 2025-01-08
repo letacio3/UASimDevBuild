@@ -1,0 +1,58 @@
+{
+    "Card": "HTR1-047",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Scope": "my_board",
+                                        "Swap_over_replace": true,
+                                        "Target": "targeted",
+                                        "To": "energyline"
+                                    },
+                                    "Method": "e_move_card"
+                                },
+                                "Callback_false": {
+                                    "Arguments": {
+                                        "Scope": "my_board",
+                                        "Swap_over_replace": true,
+                                        "Target": "targeted",
+                                        "To": "frontline"
+                                    },
+                                    "Method": "e_move_card"
+                                },
+                                "Compare": "=",
+                                "Compare_mode": "once",
+                                "Parameter": "location",
+                                "Scope": "my_board",
+                                "Target": "targeted",
+                                "Value": "card.CardLocation.FRONT_LINE"
+                            },
+                            "Method": "e_test_condition"
+                        },
+                        "Message": "Move up to one character ",
+                        "Requirements" : ["my_card.cardType=Character"],
+                        "Optional": true,
+                        "Scope": "my_board",
+                        "Self_target": "no"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

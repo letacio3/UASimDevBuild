@@ -1,0 +1,87 @@
+{
+    "Card": "HTR1-030",
+    "Effects": [
+        {
+            "Type": "Activate",
+            "State": "Disabled",
+            "Location": "Hand",
+            "Conditions": [
+                {
+                "Trigger": {
+                    "Name": "_t_activate",
+                    "Scope": "self"
+                },
+                "Parameters":
+                    [{
+                        "Parameter": "my_game_state",
+                        "Scope": "my_board",
+                        "Value": "GamePhase.MAIN_PHASE",
+                        "Compare": "=",
+                        "Compare_mode": "once"
+                    }]
+                }
+                ],
+            "Actions": [
+                {
+                "Method": "e_move_card",
+                "Arguments": {
+                    "Scope": "my_board",
+                    "Target": "self",
+                    "To": "event",
+                    "Callback":{
+                        "Method": "e_set_game_property",
+                        "Arguments": {
+                            "Parameter": "my_game_state",
+                            "Scope": "my_board",
+                            "Value": "GamePhase.ACCOMPANY",
+                            "Cancel_to_finish": true,
+                            "Message": "You can move your characters! Press cancel to finish.",
+                            "Callback":{
+                                "Method": "e_set_game_property",
+                                "Arguments": {
+                                    "Parameter": "my_game_state",
+                                    "Scope": "my_board",
+                                    "Value": "GamePhase.MAIN_PHASE"
+                        }}}
+                 }  }
+                },
+                {
+                    "Method": "e_draw_card",
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Value": 1,
+                        "Callback": {
+                            "Method": "e_move_card",
+                            "Arguments": {
+                                "Scope": "my_board",
+                                "Target": "self",
+                                "To": "sideline"
+                        }
+                        }
+                    }
+                }
+            ]           
+                },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Value": 1
+                    },
+                    "Method": "e_draw_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }
+    ]
+}

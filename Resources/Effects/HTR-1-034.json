@@ -1,0 +1,42 @@
+{
+    "Card": "HTR-1-034",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Property": "battle_points",
+                        "Scope": "self",
+                        "Value": "+1500"
+                    },
+                    "Disable": {
+                        "Arguments": {
+                            "Property": "battle_points",
+                            "Scope": "self",
+                            "Value": "-1500"
+                        },
+                        "Method": "e_buff"
+                    },
+                    "Method": "e_buff"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "!=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_game_state",
+                            "Scope": "my_board",
+                            "Value": "GamePhase.IDLE"
+                        }
+                    ],
+                    "Trigger": {}
+                }
+            ],
+            "Location": "Board",
+            "State": "Disabled",
+            "Type": "Continuous"
+        }
+    ]
+}

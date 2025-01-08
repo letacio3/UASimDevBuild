@@ -1,0 +1,39 @@
+{ 
+	"Card": "HTR-1-003",
+	"Effects": [{
+		"Type": "Continuous",
+        "State": "Disabled",
+        "Location": "Board",
+		"Conditions": [
+			{
+			"Trigger": {},
+			"Parameters":
+				[{
+				"Parameter": "my_state",
+				"Scope": "self",
+				"Value": "card.state.ACTIVE",
+				"Compare": "=",
+				"Compare_mode": "once"
+				}]
+			}
+			],
+		"Actions": [
+			{
+			"Method": "e_buff",
+			"Arguments": {
+				"Scope": "self",
+				"Property": "egen",
+				"Value": "+1"
+				},
+            "Disable": {
+                "Method": "e_buff",
+                "Arguments": {
+                    "Scope": "self",
+                    "Property": "egen",
+                    "Value": "-1"
+                    }
+            }
+			}]
+			},{}
+		]
+}

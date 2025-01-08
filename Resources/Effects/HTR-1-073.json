@@ -1,0 +1,162 @@
+{
+    "Card": "HTR-1-073",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Property": "impact",
+                        "Scope": "self",
+                        "Value": 1
+                    },
+                    "Disable": {
+                        "Arguments": {
+                            "Property": "impact",
+                            "Scope": "self",
+                            "Value": -1
+                        },
+                        "Method": "e_buff"
+                    },
+                    "Method": "e_buff"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "energy_generated_count",
+                            "Scope": "my_board",
+                            "Value": 6
+                        }
+                    ],
+                    "Trigger": {}
+                }
+            ],
+            "Location": "Board",
+            "State": "Disabled",
+            "Type": "Continuous"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Choose": "self",
+                        "Destination": "my_deck",
+                        "Order": [
+                            0,
+                            -1
+                        ],
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "Value": 1
+                    },
+                    "Method": "e_look_top_and_move"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Choose": "self",
+                        "Destination": "my_deck",
+                        "Order": [
+                            0,
+                            -1
+                        ],
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "Value": 1
+                    },
+                    "Method": "e_look_top_and_move"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_attacking",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Method": "e_play_or_raid",
+                            "Arguments": 
+                            {
+                                "Callback": {
+                                    "Method": "e_switch_card_state",
+                                    "Arguments": {
+                                    "Scope": "my_board",
+                                    "Target": "targeted",
+                                    "Value": "card.state.ACTIVE"}
+                                },
+                                "Raid": false,
+                                "Scope": "targeted",
+                                "Target": "targeted"
+                            }
+                        },
+                        "Message": "Play a card from your hand!",
+                        "Optional": true,
+                        "Requirements": [
+                            "my_card.cardType=Character",
+                            "my_card.color1=Green",
+                            "ecost<=2",
+                            "apcost<=1"
+                        ],
+                        "Scope": "hand"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Arguments": [
+                                {
+                                    "Requirements": [
+                                        "my_card.cardType=Character",
+                                        "my_card.color1=Purple",
+                                        "ecost<=2",
+                                        "apcost<=1"
+                                    ],
+                                    "Scope": "my_sideline"
+                                }
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "location_has_card_with",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 1
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }
+    ]
+}

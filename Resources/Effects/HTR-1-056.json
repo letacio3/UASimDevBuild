@@ -1,0 +1,99 @@
+{
+    "Card": "HTR-1-056",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "hand"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Callback": {
+                                            "Arguments": {
+                                                "Callback": {
+                                                    "Arguments": {
+                                                        "Property": "snipe",
+                                                        "Scope": "my_board",
+                                                        "Target": "self",
+                                                        "Until": {
+                                                            "Scope": "my_board",
+                                                            "Trigger": "_on_end_phase_start"
+                                                        },
+                                                        "Value": "+1"
+                                                    },
+                                                    "Method": "e_buff"
+                                                },
+                                                "Scope": "my_board",
+                                                "Target": "targeted",
+                                                "To": "sideline"
+                                            },
+                                            "Method": "e_move_card"
+                                        },
+                                        "Message": "Please discard a card!",
+                                        "Optional": true,
+                                        "Scope": "my_hand",
+                                        "Self_target": "no",
+                                        "Value": "temp_target"
+                                    },
+                                    "Method": "e_target_card"
+                                },
+                                "Scope": "my_board",
+                                "Target": "targeted",
+                                "To": "sideline"
+                            },
+                            "Method": "e_move_card"
+                        },
+                        "Message": "Please discard a card!",
+                        "Optional": true,
+                        "Scope": "my_hand",
+                        "Self_target": "no"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_game_state",
+                            "Scope": "my_board",
+                            "Value": "GamePhase.MAIN_PHASE"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_activate",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Location": "Board",
+            "State": "Disabled",
+            "Type": "Activate"
+        }
+    ]
+}

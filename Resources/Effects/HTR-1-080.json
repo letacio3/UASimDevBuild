@@ -1,0 +1,65 @@
+{
+    "Card": "HTR-1-080",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "sideline"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "location",
+                            "Scope": "self",
+                            "Value": "card.CardLocation.FRONT_LINE"
+                        },
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_state",
+                            "Scope": "self",
+                            "Value": "card.state.ACTIVE"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_on_end_phase_start",
+                        "Scope": "my_board",
+                        "Reconnect_on_trigger": true
+                    }
+                }
+            ],
+            "Type": "Action"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "sideline"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_attacked_and_lost",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

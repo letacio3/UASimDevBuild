@@ -1,0 +1,169 @@
+{
+    "Card": "HTR-1-092",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Property": "battle_points",
+                                        "Scope": "my_board",
+                                        "Target": "targeted",
+                                        "Until": {
+                                            "Scope": "op_board",
+                                            "Trigger": "_on_end_phase_start"
+                                        },
+                                        "Value": "+3000"
+                                    },
+                                    "Method": "e_buff"
+                                },
+                                "Scope": "my_board",
+                                "Target": "targeted",
+                                "Value": "card.state.ACTIVE"
+                            },
+                            "Method": "e_switch_card_state"
+                        },
+                        "Message": "Choose a card to switch to active and give +3000 BP!",
+                        "Scope": "my_board",
+                        "Self_target": "no"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Arguments": [
+                                "my_board"
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "number_of_cards",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 1
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Scope": "my_board",
+                                "Value": 1
+                            },
+                            "Method": "e_draw_card"
+                        },
+                        "Property": "once_per_turn",
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "Until": {
+                            "Scope": "my_board",
+                            "Trigger": "_on_end_phase_start"
+                        },
+                        "Value": "+1"
+                    },
+                    "Method": "e_buff"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "once_per_turn",
+                            "Scope": "self",
+                            "Value": 0
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_attacked_and_not_blocked",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Callback": {
+                                            "Arguments": {
+                                                "Property": "impact",
+                                                "Scope": "my_board",
+                                                "Target": "self",
+                                                "Until": {
+                                                    "Scope": "my_board",
+                                                    "Trigger": "_on_end_phase_start"
+                                                },
+                                                "Value": "+1"
+                                            },
+                                            "Method": "e_buff"
+                                        },
+                                        "Property": "battle_points",
+                                        "Scope": "my_board",
+                                        "Target": "self",
+                                        "Until": {
+                                            "Scope": "my_board",
+                                            "Trigger": "_on_end_phase_start"
+                                        },
+                                        "Value": "+1500"
+                                    },
+                                    "Method": "e_buff"
+                                },
+                                "Scope": "my_board",
+                                "Target": "targeted",
+                                "Value": "card.state.RESTED"
+                            },
+                            "Method": "e_switch_card_state"
+                        },
+                        "Message": "Choose an AP card to set to REST!",
+                        "Optional": true,
+                        "Requirements": "my_state=card.state.ACTIVE",
+                        "Scope": "my_ap",
+                        "Self_target": "no"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                        "Parameter": "my_game_state",
+                        "Scope": "my_board",
+                        "Value": "GamePhase.MAIN_PHASE",
+                        "Compare": "=",
+                        "Compare_mode": "once"
+                        }],
+                    "Trigger": {
+                        "Name": "_t_activate",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Location": "Board",
+            "State": "Disabled",
+            "Type": "Activate"
+        }
+    ]
+}

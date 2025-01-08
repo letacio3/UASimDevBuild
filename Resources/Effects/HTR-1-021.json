@@ -1,0 +1,36 @@
+{ 
+	"Card": "HTR-1-021",
+	"Effects": [{
+        "Type": "Action",
+        "Conditions": [
+            {
+            "Trigger": {
+                "Name": "_t_when_played",
+                "Scope": "self"
+            },
+			"Parameters":
+				[]
+			}
+			],
+		"Actions": [
+			{
+			"Method": "e_switch_card_state",
+			"Arguments": {
+				"Scope": "self",
+				"Value": "card.state.RESTED",
+				"Callback": {
+				"Method": "e_look_top_and_move",
+				"Arguments": {
+					"Scope": "my_board",
+					"Destination": "my_deck",
+					"Choose": "self",
+					"Order": [0,-1],
+					"Value": 1
+					}
+				}
+				}
+			}
+			]
+	}
+	]
+}

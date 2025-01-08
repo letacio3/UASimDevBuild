@@ -1,0 +1,93 @@
+{ 
+	"Card": "HTR-1-015",
+	"Effects": [{
+		"Type": "Continuous",
+        "State": "Disabled",
+        "Location": "Board",
+		"Conditions": [
+			{
+			"Trigger": {},
+			"Parameters":
+				[{
+				"Parameter": "location_has_card_with",
+				"Arguments": [{
+					"Scope": "op_frontline", 
+					"Requirements": ["my_card.cardType=Character"]
+				}],
+				"Scope": "my_board",
+				"Value": "2",
+				"Type": "method",
+				"Compare": ">=",
+				"Compare_mode": "once"
+				},
+				{
+				"Parameter": "damage",
+				"Scope": "self",
+				"Value": "1",
+				"Ignore_disable": true,
+				"Compare": "<=",
+				"Compare_mode": "once"
+				}]
+			}
+			],
+		"Actions": [
+			{
+			"Method": "e_buff",
+			"Arguments": {
+				"Scope": "self",
+				"Property": "damage",
+				"Value": "+1"
+				},
+            "Disable": {
+                "Method": "e_buff",
+                "Arguments": {
+                    "Scope": "self",
+                    "Property": "damage",
+                    "Value": "-1"
+                    }
+            }
+			}]
+			},
+		{
+			"Actions": [
+				{
+				"Method": "e_target_card",
+				"Arguments": {
+					"Scope": "my_energyline",
+					"Message": "Move up to one character to front line!",
+					"Optional": true,
+					"Requirements": ["my_card.cardType=Character"],
+					"Callback": {
+						"Method": "e_move_card",
+						"Arguments": {
+							"Scope": "my_board",
+							"Target": "targeted", 
+							"To": "frontline"
+							}
+							}
+					}
+				}
+			],
+			"Conditions": [
+				{
+					"Parameters": [{
+						"Parameter": "location_has_card_with",
+						"Arguments": [{
+							"Scope": "my_energyline"
+						}],
+						"Scope": "my_board",
+						"Value": "1",
+						"Type": "method",
+						"Compare": ">=",
+						"Compare_mode": "once"
+						}],
+					"Trigger": {
+						"Name": "_t_when_sidelined",
+						"Scope": "self"
+					}
+				}
+			],
+			"Type": "Action"
+		}
+		]
+}

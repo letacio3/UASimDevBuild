@@ -1,0 +1,74 @@
+{
+    "Card": "HTR-1-108",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "hand"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Property": "egen",
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "Value": "+1"
+                    },
+                    "Disable": {
+                        "Arguments": {
+                            "Property": "egen",
+                            "Scope": "self",
+                            "Value": -1
+                        },
+                        "Method": "e_buff"
+                    },
+                    "Method": "e_buff"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Arguments": [
+                                {
+                                    "Requirements": [
+                                        "my_card.cardName=Gon Freecss"
+                                    ],
+                                    "Scope": "my_board"
+                                }
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "location_has_card_with",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 1
+                        }
+                    ],
+                    "Trigger": {}
+                }
+            ],
+            "Location": "Board",
+            "State": "Disabled",
+            "Type": "Continuous"
+        }
+    ]
+}

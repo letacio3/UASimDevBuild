@@ -1,0 +1,117 @@
+{ 
+	"Card": "HTR-1-023",
+	"Effects": [{
+		"Type": "Action",
+		"Conditions": [
+			{
+			"Trigger": {
+				"Name": "_t_when_played",
+				"Scope": "self"
+			},
+			"Parameters":
+				[
+                {
+                "Parameter": "location_has_card_with",
+                "Arguments": [{
+                    "Scope": "my_deck"
+                }],
+                "Scope": "my_board",
+                "Value": "1",
+                "Type": "method",
+                "Compare": ">=",
+                "Compare_mode": "once"
+                }]
+			}
+			],
+		"Actions": [
+			{
+			"Method": "e_reveal_card",
+			"Arguments": {
+				"Scope": "my_board",
+				"Target": [0, -1],
+                "Callback": {
+                    "Method": "e_test_condition",
+                    "Arguments": {
+                        "Parameter": "ecost",
+                        "Scope": "my_board",
+                        "Target": "targeted",
+                        "Value": "2",
+                        "Compare": ">=",
+                        "Compare_mode": "once",
+                        "Callback":{
+                            "Method": "e_target_card",
+                            "Arguments": {
+                                "Scope": "op_frontline",
+                                "Message": "Sideline an Opponent Character in FL with <= 3000 BP!",
+                                "Optional": true,
+                                "Cancel_continue": true,
+                                "Requirements": "battle_points<=3000",
+                                "Callback": {
+                                    "Method": "e_move_card",
+                                    "Arguments": {
+                                        "Scope": "op_frontline",
+                                        "Target": "targeted", 
+                                        "To": "sideline"
+                                        }
+                                }
+                            }
+                        }
+                            
+                    }
+                }
+            }
+                        
+            }       
+			,{
+            "Method": "e_look_top_and_move",
+            "Arguments": {
+                "Scope": "my_board",
+                "Destination": "my_deck",
+                "Choose": "self",
+                "Order": [0,-1],
+                "Value": 1
+            }}
+        ]
+	},
+	{
+		"Type": "Trigger",
+		"Conditions": [
+			{
+			"Trigger": {
+				"Name": "_t_card_triggered",
+				"Scope": "self"
+			},
+			"Parameters":
+				[]
+			}
+			],
+		"Actions": [
+			{
+			"Method": "e_move_card",
+            "Arguments": {
+                "Scope": "my_board",
+                "Target": "self", 
+                "To": "hand",
+                "Callback": {
+                    "Method": "e_test_condition",
+                    "Arguments": {
+                        "Parameter": "energy_generated_count",
+                        "Scope": "my_board",
+                        "Value": "4",
+                        "Target": "self",
+                        "Compare": ">=",
+                        "Compare_mode": "once",
+                        "Callback":{
+                            "Method": "e_raid",
+                            "Arguments": {
+                                "Scope": "my_board",
+                                "Target": "self"
+                        }	
+                    }}
+                }
+                }
+			}
+			]
+		}
+	]
+}

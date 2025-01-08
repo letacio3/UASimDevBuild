@@ -1,0 +1,29 @@
+{
+    "Card": "BLC1-063",
+    "Effects": [
+        {
+            "Effect": "Missing"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Value": 1
+                    },
+                    "Method": "e_draw_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }
+    ]
+}

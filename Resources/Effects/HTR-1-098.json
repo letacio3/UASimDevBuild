@@ -1,0 +1,171 @@
+{
+    "Card": "HTR-1-098",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Callback": {
+                                            "Arguments": {
+                                                "Callback": {
+                                                    "Arguments": {
+                                                        "Callback": {
+                                                            "Arguments": {
+                                                                "Choices": [
+                                                                {
+                                                                    "Arguments": {
+                                                                        "Scope": "op_board",
+                                                                        "Target": "temp_target",
+                                                                        "To": "sideline"
+                                                                    },
+                                                                    "Message": "Frontline",
+                                                                    "Method": "e_move_card"
+                                                                },
+                                                                {
+                                                                    "Arguments": {
+                                                                        "Scope": "op_board",
+                                                                        "Target": "temp_target_2",
+                                                                        "To": "sideline"
+                                                                    },
+                                                                    "Message": "Energyline",
+                                                                    "Method": "e_move_card"
+                                                                },
+                                                                {
+                                                                    "Arguments": {
+                                                                        "Callback": {
+                                                                            "Arguments": {
+                                                                                "Callback": {
+                                                                                    "Arguments": {
+                                                                                        "Scope": "my_board",
+                                                                                        "Target": "targeted",
+                                                                                        "Value": "card.state.ACTIVE"
+                                                                                    },
+                                                                                    "Method": "e_switch_card_state",
+                                                                                    "Scope": "my_board"
+                                                                                },
+                                                                                "Message": "Choose an AP card to set to active!",
+                                                                                "Optional": true,
+                                                                                "Requirements": "my_state=card.state.RESTED",
+                                                                                "Scope": "my_ap",
+                                                                                "Self_target": "no"
+                                                                            },
+                                                                            "Method": "e_target_card"
+                                                                        },
+                                                                        "Scope": "my_board",
+                                                                        "Value": 1
+                                                                    },
+                                                                    "Message": "Draw + 1AP",
+                                                                    "Method": "e_draw_card"
+                                                                }
+                                                            ],
+                                                            "Scope": "op_board"
+                                                            },
+                                                            "Method": "e_choose"
+                                                        },
+                                                        "Scope": "op_energyline",
+                                                        "Target": "targeted"
+                                                    },
+                                                    "Method": "e_reveal_card"
+                                                },
+                                                "Message": "Choose a character!",
+                                                "Optional": true,
+                                                "Requirements": [
+                                                    "my_card.cardType=Character"
+                                                ],
+                                                "Scope": "op_energyline",
+                                                "Self_target": "no",
+                                                "Store": true,
+                                                "Value": "temp_target_2"
+                                            },
+                                            "Method": "e_target_card"
+                                        },
+                                        "Scope": "op_frontline",
+                                        "Target": "targeted"
+                                    },
+                                    "Method": "e_reveal_card"
+                                },
+                                "Message": "Choose a character!",
+                                "Optional": true,
+                                "Requirements": [
+                                    "my_card.cardType=Character"
+                                ],
+                                "Scope": "op_frontline",
+                                "Self_target": "no",
+                                "Store": true,
+                                "Value": "temp_target"
+                            },
+                            "Method": "e_target_card"
+                        },
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "event"
+                    },
+                    "Method": "e_move_card"
+                },
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "To": "sideline"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_game_state",
+                            "Scope": "my_board",
+                            "Value": "GamePhase.MAIN_PHASE"
+                        },
+                        {
+                            "Arguments": [
+                                {
+                                    "Requirements": [
+                                        "my_card.cardType=Character"
+                                    ],
+                                    "Scope": "op_frontline"
+                                }
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "location_has_card_with",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 1
+                        },
+                        {
+                            "Arguments": [
+                                {
+                                    "Requirements": [
+                                        "my_card.cardType=Character"
+                                    ],
+                                    "Scope": "op_energyline"
+                                }
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "location_has_card_with",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 1
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_activate",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Location": "Hand",
+            "State": "Disabled",
+            "Type": "Activate"
+        }
+    ]
+}

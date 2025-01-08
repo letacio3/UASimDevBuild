@@ -1,0 +1,119 @@
+{
+    "Card": "HTR-1-036",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Choose": "No",
+                        "Destination": "my_deck",
+                        "Draw": {
+                            "Callback": {
+                                "Arguments": {
+                                    "Callback": {
+                                        "Arguments": {
+                                            "Scope": "my_board",
+                                            "Target": "targeted",
+                                            "To": "sideline"
+                                        },
+                                        "Method": "e_move_card"
+                                    },
+                                    "Message": "Please discard a card!",
+                                    "Scope": "my_hand"
+                                },
+                                "Method": "e_target_card"
+                            },
+                            "Names": [
+                                "_not_Chrollo"
+                            ],
+                            "Tags": [
+                                "Phantom Troupe"
+                            ],
+                            "Value": 1
+                        },
+                        "Order": [
+                            0
+                        ],
+                        "Scope": "my_board",
+                        "Value": 4
+                    },
+                    "Method": "e_look_top_and_move"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        },
+        {
+            "Actions": [
+                {
+                  "Method": "e_target_card",
+                        "Arguments": {
+                            "Scope": "sideline",
+                            "Message": "Play a card from your sideline!",
+                            "Optional": true,
+                            "Requirements": [
+                                "my_card.cardType=Character",
+                                "my_card.color1=Purple",
+                                "ecost<=2",
+                                "apcost<=1"
+                            ],
+                            "Callback": {
+                                "Method": "e_play_or_raid",
+                                "Arguments": {
+                                    "Scope": "targeted",
+                                    "Target": "targeted",
+                                    "Raid": false,
+                                    "Energy_line": false,
+                                    "Callback": {
+                                        "Method": "e_switch_card_state",
+                                        "Arguments": {
+                                        "Scope": "my_board",
+                                        "Target": "targeted",
+                                        "Value": "card.state.ACTIVE"}
+                                    }
+                                }
+                            }
+                        }  
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Arguments": [
+                                {
+                                    "Requirements": [
+                                        "my_card.cardType=Character",
+                                        "my_card.color1=Purple",
+                                        "ecost<=2",
+                                        "apcost<=1"
+                                    ],
+                                    "Scope": "my_sideline"
+                                }
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "location_has_card_with",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 1
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }
+    ]
+}

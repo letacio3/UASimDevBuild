@@ -1,0 +1,108 @@
+{
+    "Card": "HTR-P-003",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Property": "battle_points",
+                                        "Scope": "my_board",
+                                        "Target": "targeted",
+                                        "Until": {
+                                            "Scope": "op_board",
+                                            "Trigger": "_on_end_phase_start"
+                                        },
+                                        "Value": "+3000"
+                                    },
+                                    "Method": "e_buff"
+                                },
+                                "Scope": "my_board",
+                                "Target": "targeted",
+                                "Value": "card.state.ACTIVE"
+                            },
+                            "Method": "e_switch_card_state"
+                        },
+                        "Message": "Choose a card to switch to active and give +3000 BP!",
+                        "Scope": "my_board",
+                        "Self_target": "no"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Arguments": [
+                                "my_board"
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "number_of_cards",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 1
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Property": "impact",
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "Value": "+1"
+                    },
+                    "Disable": {
+                        "Arguments": {
+                            "Property": "impact",
+                            "Scope": "self",
+                            "Value": -1
+                        },
+                        "Method": "e_buff"
+                    },
+                    "Method": "e_buff"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Arguments": [
+                                {
+                                    "Requirements": [
+                                        "battle_points>=5000",
+                                        "my_card.cardType=Character"
+                                    ],
+                                    "Scope": "my_board"
+                                }
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "location_has_card_with",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 1
+                        }
+                    ],
+                    "Trigger": {}
+                }
+            ],
+            "Location": "Board",
+            "State": "Disabled",
+            "Type": "Continuous"
+        }
+    ]
+}

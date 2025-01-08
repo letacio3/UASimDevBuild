@@ -1,0 +1,169 @@
+{
+    "Card": "HTR-1-066",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Arguments": [
+                                    {
+                                        "Requirements": [
+                                            "tag=Zoldyck Family"
+                                        ],
+                                        "Scope": "my_board"
+                                    }
+                                ],
+                                "Callback": {
+                                    "Arguments": {
+                                        "Callback": {
+                                            "Arguments": {
+                                                "Scope": "op_board",
+                                                "Target": "targeted",
+                                                "To": "sideline"
+                                            },
+                                            "Method": "e_move_card"
+                                        },
+                                        "Message": "Sideline a character in OP FL with BP <= 5000!",
+                                        "Optional": true,
+                                        "Requirements": [
+                                            "battle_points<=5000",
+                                            "my_card.cardType=Character"
+                                        ],
+                                        "Scope": "op_frontline"
+                                    },
+                                    "Method": "e_target_card"
+                                },
+                                "Compare": ">=",
+                                "Compare_mode": "once",
+                                "Parameter": "location_has_card_with",
+                                "Scope": "my_board",
+                                "Target": "self",
+                                "Type": "method",
+                                "Callback_false": {
+                                    "Arguments": {
+                                        "Callback": {
+                                            "Arguments": {
+                                                "Scope": "op_board",
+                                                "Target": "targeted",
+                                                "To": "sideline"
+                                            },
+                                            "Method": "e_move_card"
+                                        },
+                                        "Message": "Sideline a character in OP FL with BP <= 3000!",
+                                        "Optional": true,
+                                        "Requirements": [
+                                            "battle_points<=3000",
+                                            "my_card.cardType=Character"
+                                        ],
+                                        "Scope": "op_frontline",
+                                        "Self_target": "no"
+                                    },
+                                    "Method": "e_target_card"
+                                },
+                                "Value": 3
+                            },
+                            "Method": "e_test_condition"
+                        },
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "event"
+                    },
+                    "Method": "e_move_card"
+                },
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "sideline"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Arguments": [
+                                {
+                                    "Requirements": [
+                                        "my_card.cardType=Character"
+                                    ],
+                                    "Scope": "op_frontline"
+                                }
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "location_has_card_with",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 1
+                        },
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_game_state",
+                            "Scope": "my_board",
+                            "Value": "GamePhase.MAIN_PHASE"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_activate",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Location": "Hand",
+            "State": "Disabled",
+            "Type": "Activate"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Scope": "op_board",
+                                "Target": "targeted",
+                                "To": "sideline"
+                            },
+                            "Method": "e_move_card"
+                        },
+                        "Message": "Sideline an Opponent Character in FL!",
+                        "Optional": true,
+                        "Scope": "op_frontline"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Arguments": [
+                                {
+                                    "Requirements": [
+                                        "my_card.cardType=Character"
+                                    ],
+                                    "Scope": "op_frontline"
+                                }
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "location_has_card_with",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 1
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }
+    ]
+}

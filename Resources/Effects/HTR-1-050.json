@@ -1,0 +1,87 @@
+{
+    "Card": "HTR-1-050",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Scope": "my_board",
+                                        "Target": "self"
+                                    },
+                                    "Method": "e_raid"
+                                },
+                                "Compare": ">=",
+                                "Compare_mode": "once",
+                                "Parameter": "energy_generated_count",
+                                "Scope": "my_board",
+                                "Target": "self",
+                                "Value": 5
+                            },
+                            "Method": "e_test_condition"
+                        },
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "hand"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        },
+        {
+            "Actions":[{
+                "Arguments": {
+                    "Callback": {
+                        "Arguments": {
+                            "Action": {
+                                "Arguments": {
+                                    "Scope": "my_board",
+                                    "Value": 2
+                                },
+                                "Method": "e_draw_card"
+                            },
+                            "Scope": "op_board",
+                            "Target": "targeted",
+                            "Card_trigger": true,
+                            "Timeout": {
+                                "Scope": "my_board",
+                                "Trigger": "_on_end_phase_start"
+                            },
+                            "Trigger": "_t_when_sidelined"
+                        },
+                        "Method": "e_program_action"
+                    },
+                    "Cancel_continue": true,
+                    "Message": "Choose a character",
+                    "Optional": true,
+                    "Scope": "op_board",
+                    "Store": true,
+                    "Value": "temp_target"
+                },
+                "Method": "e_target_card"}],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

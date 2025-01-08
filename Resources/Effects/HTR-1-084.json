@@ -1,0 +1,75 @@
+{
+    "Card": "HTR-1-084",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Method": "e_test_condition",
+                            "Arguments": {
+                                "Aux": {
+                                    "Method": "get_generated_enery",
+                                    "Scope": "my_board",
+                                    "Store": true,
+                                    "Value": "temp_egen"
+                                },
+                                "Callback": {
+                                    "Method": "e_test_condition",
+                                    "Arguments": {
+                                        "Compare": "<=",
+                                        "Compare_mode": "once",
+                                        "Parameter": "apcost",
+                                        "Scope": "my_board",
+                                        "Target": "targeted",
+                                        "Value": 1,
+                                        "Callback": {
+                                            "Method": "e_play_or_raid",
+                                            "Arguments": {
+                                                "Raid": true,
+                                                "Scope": "my_board",
+                                                "Target": "targeted"
+                                            }
+                                        }
+                                    }
+                                },
+                                "Compare": "<=",
+                                "Compare_mode": "once",
+                                "Parameter": "ecost",
+                                "Scope": "my_board",
+                                "Target": [
+                                    1,
+                                    -1
+                                ],
+                                "Value": "temp_egen"
+                            }
+                        },
+                        "Choose": "self",
+                        "Destination": "my_deck",
+                        "Draw": {
+                            "Value": 1
+                        },
+                        "Order": [
+                            0,
+                            -1
+                        ],
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "Value": 4
+                    },
+                    "Method": "e_look_top_and_move"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

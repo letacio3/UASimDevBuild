@@ -1,0 +1,96 @@
+{
+    "Card": "HTR-1-074",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Scope": "my_board",
+                                        "Target": "self"
+                                    },
+                                    "Method": "e_raid"
+                                },
+                                "Compare": ">=",
+                                "Compare_mode": "once",
+                                "Parameter": "energy_generated_count",
+                                "Scope": "my_board",
+                                "Target": "self",
+                                "Value": 7
+                            },
+                            "Method": "e_test_condition"
+                        },
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "hand"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                    "Choices": [
+                        {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Scope": "op_board",
+                                        "Target": "targeted",
+                                        "Value": "card.state.RESTED"
+                                    },
+                                    "Method": "e_switch_card_state",
+                                    "Scope": "op_board"
+                                },
+                                "Cancel_continue": true,
+                                "Message": "Choose a card to switch to Rest!",
+                                "Optional": true,
+                                "Scope": "op_frontline",
+                                "Self_target": "no"
+                            },
+                            "Message": "Rest OP Char",
+                            "Method": "e_target_card"
+                        },
+                        {
+                            "Arguments": {
+                                "Property": "snipe",
+                                "Scope": "my_board",
+                                "Target": "self",
+                                "Value": "+1"
+                            },
+                            "Message": "Gain Snipe",
+                            "Method": "e_buff"
+                        }
+                    ],
+                    "Scope": "my_board"},
+                    "Method": "e_choose"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

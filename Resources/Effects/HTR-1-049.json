@@ -1,0 +1,89 @@
+{
+    "Card": "HTR1-049",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Value": 1
+                    },
+                    "Method": "e_draw_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        },
+        {
+            "Actions": [
+                {
+                  "Method": "e_target_card",
+                        "Arguments": {
+                            "Scope": "sideline",
+                            "Message": "Play a card from your sideline!",
+                            "Optional": true,
+                            "Requirements": [
+                                "my_card.cardType=Character",
+                                "my_card.color1=Purple",
+                                "ecost<=2",
+                                "apcost<=1"
+                            ],
+                            "Callback": {
+                                "Method": "e_play_or_raid",
+                                "Arguments": {
+                                    "Scope": "targeted",
+                                    "Target": "targeted",
+                                    "Raid": false,
+                                    "Energy_line": false,
+                                    "Callback": {
+                                        "Method": "e_switch_card_state",
+                                        "Scope": "my_board",
+                                        "Target": "targeted",
+                                        "Value": "card.state.ACTIVE"
+                                    }
+                                }
+                            }
+                        }  
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Arguments": [
+                                {
+                                    "Requirements": [
+                                        "my_card.cardType=Character",
+                                        "my_card.color1=Purple",
+                                        "ecost<=2",
+                                        "apcost<=1"
+                                    ],
+                                    "Scope": "my_sideline"
+                                }
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "location_has_card_with",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 1
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }
+    ]
+}

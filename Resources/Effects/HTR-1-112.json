@@ -1,0 +1,28 @@
+{ 
+	"Card": "HTR-1-112",
+	"Effects": [{
+	},
+	{
+		"Type": "Trigger",
+		"Conditions": [
+			{
+			"Trigger": {
+				"Name": "_t_card_triggered",
+				"Scope": "self"
+			},
+			"Parameters":
+				[]
+			}
+			],
+		"Actions": [
+			{
+			"Method": "e_move_card",
+            "Arguments": {
+                "Scope": "my_board",
+                "Target": "self", 
+                "To": "hand"}
+			}
+			]
+		}
+	]
+}

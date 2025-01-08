@@ -1,0 +1,160 @@
+{
+    "Card": "HTR-1-096",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Scope": "op_board",
+                                "Target": "targeted",
+                                "To": "sideline"
+                            },
+                            "Method": "e_move_card"
+                        },
+                        "Message": "Sideline an Opponent Character in FL!",
+                        "Optional": true,
+                        "Scope": "op_frontline"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Arguments": [
+                                {
+                                    "Requirements": [
+                                        "my_card.cardType=Character"
+                                    ],
+                                    "Scope": "op_frontline"
+                                }
+                            ],
+                            "Compare": ">=",
+                            "Compare_mode": "once",
+                            "Parameter": "location_has_card_with",
+                            "Scope": "my_board",
+                            "Type": "method",
+                            "Value": 1
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Callback": {
+                                            "Arguments": {
+                                                "Action": {
+                                                    "Arguments": {
+                                                        "Scope": "my_board",
+                                                        "Value": 1
+                                                    },
+                                                    "Method": "e_draw_card"
+                                                },
+                                                "Callback": {
+                                                    "Arguments": {
+                                                        "Compare": {
+                                                            "Arguments": {
+                                                                "Property": "snipe",
+                                                                "Scope": "my_board",
+                                                                "Target": "targeted",
+                                                                "Until": {
+                                                                    "Scope": "my_board",
+                                                                    "Trigger": "_on_end_phase_start"
+                                                                },
+                                                                "Value": 1
+                                                            },
+                                                            "Method": "e_buff"
+                                                        },
+                                                        "Compare_mode": "once",
+                                                        "Parameter": "my_card.cardName",
+                                                        "Scope": "my_board",
+                                                        "Target": "targeted",
+                                                        "Value": "Kurapika"
+                                                    },
+                                                    "Method": "e_test_condition"
+                                                },
+                                                "Card_trigger": true,
+                                                "Scope": "my_board",
+                                                "Target": "targeted",
+                                                "Timeout": {
+                                                    "Scope": "my_board",
+                                                    "Trigger": "_on_end_phase_start"
+                                                },
+                                                "Trigger": "_t_attacked_and_won"
+                                            },
+                                            "Method": "e_program_action"
+                                        },
+                                        "Property": "battle_points",
+                                        "Scope": "my_board",
+                                        "Target": "targeted",
+                                        "Until": {
+                                            "Scope": "my_board",
+                                            "Trigger": "_on_end_phase_start"
+                                        },
+                                        "Value": "+3000"
+                                    },
+                                    "Method": "e_buff"
+                                },
+                                "Message": "Choose a character!",
+                                "Optional": true,
+                                "Requirements": [
+                                    "my_card.cardType=Character"
+                                ],
+                                "Scope": "my_board",
+                                "Self_target": "no"
+                            },
+                            "Method": "e_target_card"
+                        },
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "event"
+                    },
+                    "Method": "e_move_card"
+                },
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "sideline"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_game_state",
+                            "Scope": "my_board",
+                            "Value": "GamePhase.MAIN_PHASE"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_activate",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Location": "Hand",
+            "State": "Disabled",
+            "Type": "Activate"
+        }
+    ]
+}

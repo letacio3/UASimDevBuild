@@ -1,0 +1,77 @@
+{
+    "Card": "HTR-1-095",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "hand"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Scope": "my_board",
+                                "Value": 1
+                            },
+                            "Method": "e_draw_card"
+                        },
+                        "Property": "once_per_turn",
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "Until": {
+                            "Scope": "my_board",
+                            "Trigger": "_on_end_phase_start"
+                        },
+                        "Value": "+1"
+                    },
+                    "Method": "e_buff"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "once_per_turn",
+                            "Scope": "self",
+                            "Value": 0
+                        },
+                        {
+                        "Parameter": "location",
+                        "Scope": "self",
+                        "Value": "card.CardLocation.ENERGY_LINE",
+                        "Compare": "=",
+                        "Compare_mode": "once"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_on_attacked_and_won",
+                        "Scope": "my_board",
+                        "Reconnect_on_trigger": true
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

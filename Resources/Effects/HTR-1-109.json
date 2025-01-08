@@ -1,0 +1,107 @@
+{
+    "Card": "HTR-1-109",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Value": 1
+                    },
+                    "Method": "e_draw_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Choose": "self",
+                                "Destination": "my_deck",
+                                "Draw": {
+                                    "Callback": {
+                                        "Arguments": {
+                                            "Callback": {
+                                                "Arguments": {
+                                                    "Scope": "my_board",
+                                                    "Value": 1
+                                                },
+                                                "Method": "e_draw_card"
+                                            },
+                                            "Compare": "=",
+                                            "Compare_mode": "once",
+                                            "Parameter": "my_card.cardName",
+                                            "Scope": "my_board",
+                                            "Target": [
+                                                1,
+                                                -1
+                                            ],
+                                            "Value": "Gon Freecss"
+                                        },
+                                        "Method": "e_test_condition"
+                                    },
+                                    "Requirements": [
+                                        "my_card.cardType=Character"
+                                    ],
+                                    "Value": 1
+                                },
+                                "Order": [
+                                    0,
+                                    -1
+                                ],
+                                "Scope": "my_board",
+                                "Target": "self",
+                                "Value": 5
+                            },
+                            "Method": "e_look_top_and_move"
+                        },
+                        "Target": "self",
+                        "To": "event",
+                        "Scope": "my_board"
+                    },
+                    "Method": "e_move_card"
+                },
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "sideline"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_game_state",
+                            "Scope": "my_board",
+                            "Value": "GamePhase.MAIN_PHASE"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_activate",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Location": "Hand",
+            "State": "Disabled",
+            "Type": "Activate"
+        }
+    ]
+}

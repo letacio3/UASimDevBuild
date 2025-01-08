@@ -1,0 +1,77 @@
+{ 
+	"Card": "BLC-1-042",
+	"Effects": [{
+		"Type": "Activate",
+        "State": "Disabled",
+        "Location": "Board",
+		"Conditions": [
+			{
+			"Trigger": {
+				"Name": "_t_activate",
+				"Scope": "self"
+			},
+			"Parameters":
+				[{
+                "Parameter": "once_per_turn",
+                "Scope": "self",
+                "Value": "0",
+                "Compare": "=",
+                "Compare_mode": "once"
+                },
+				{
+				"Parameter": "my_game_state",
+				"Scope": "my_board",
+				"Value": "GamePhase.MAIN_PHASE",
+				"Compare": "=",
+				"Compare_mode": "once"
+				},
+                {
+                "Parameter": "my_state",
+                "Scope": "self",
+                "Value": "card.state.ACTIVE",
+                "Compare": "=",
+                "Compare_mode": "once"
+                }]
+			}
+			],
+		"Actions": [
+			{
+            "Method": "e_switch_card_state",
+            "Arguments": {
+                "Scope": "self",
+                "Value": "card.state.RESTED",
+                "Callback":{
+                    "Method": "e_buff",
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "targeted",
+                        "Property": "egen",
+                        "Value": 1,
+                        "Until": {
+                        "Trigger": "_on_end_phase_start",
+                        "Scope": "my_board"
+                        },
+                        "Callback": {
+                            "Method": "e_program_action",
+                            "Arguments": {
+                                "Trigger": "_on_end_phase_start",
+                                "Scope": "my_board",
+                                "Target": "targeted",
+                                "Action":{
+                                    "Method": "e_move_card",
+                                    "Arguments": {
+                                        "Scope": "my_board",
+                                        "Target": "targeted", 
+                                        "To": "sideline"
+                                        }
+                                    }	
+                                }
+                            }
+                        }
+                        }
+                    }
+                    }
+			]
+	},{}
+	]
+}

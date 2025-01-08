@@ -1,0 +1,41 @@
+{ 
+	"Card": "BLC-1-044",
+	"Effects": [{
+		"Type": "Continuous",
+        "State": "Disabled",
+        "Location": "Hand",
+		"Conditions": [
+			{
+			"Trigger": {},
+			"Parameters":
+				[{
+				"Parameter": "board_has_card_with",
+				"Scope": "op_board",
+				"Arguments": ["color", "Yellow/Green"],
+                "Value": true,
+                "Type": "method",
+				"Compare": "=",
+				"Compare_mode": "once"
+				}]
+			}
+			],
+		"Actions": [
+			{
+			"Method": "e_buff",
+			"Arguments": {
+				"Scope": "self",
+				"Property": "ecost",
+				"Value": "-1"
+				},
+            "Disable": {
+                "Method": "e_buff",
+                "Arguments": {
+                    "Scope": "self",
+                    "Property": "ecost",
+                    "Value": "+1"
+                    }
+            }
+			}]
+			},{}
+		]
+}

@@ -1,0 +1,64 @@
+{
+    "Card": "HTR1-043",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Value": 1
+                    },
+                    "Method": "e_draw_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Choose_replacement": true,
+                                "Scope": "op_board",
+                                "Swap_over_replace": true,
+                                "Target": "temp_target",
+                                "To": "frontline"
+                            },
+                            "Method": "e_move_card"
+                        },
+                        "Message": "Move up to one character to front line!",
+                        "Optional": true,
+                        "Requirements": [
+                            "my_card.cardType=Character"
+                        ],
+                        "Scope": "op_energyline",
+                        "Self_target": "no",
+                        "Store": true,
+                        "Value": "temp_target"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

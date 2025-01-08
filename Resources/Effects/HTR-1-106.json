@@ -1,0 +1,57 @@
+{
+    "Card": "HTR-1-106",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Aux": {
+                            "Arguments": 
+                                [{
+                                    "Not_self": true,
+                                    "Requirements": [],
+                                    "Scope": "my_board"
+                                }],
+                            "Method": "get_highest_bp",
+                            "Scope": "my_board",
+                            "Store": true,
+                            "Value": "temp_max_bp"
+                        },
+                        "Callback": {
+                            "Arguments": {
+                                "Scope": "op_board",
+                                "Target": "targeted",
+                                "To": "sideline"
+                            },
+                            "Method": "e_move_card"
+                        },
+                        "Message": "Sideline a character in OP FL!",
+                        "Optional": true,
+                        "Requirements": "battle_points<=temp_max_bp",
+                        "Scope": "op_frontline",
+                        "Self_target": "no"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "location",
+                            "Scope": "self",
+                            "Value": "card.CardLocation.FRONT_LINE"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

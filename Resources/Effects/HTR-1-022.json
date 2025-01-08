@@ -1,0 +1,103 @@
+{ 
+	"Card": "HTR-1-022",
+	"Effects": [{
+        "Type": "Action",
+        "Conditions": [
+            {
+            "Trigger": {
+                "Name": "_t_when_played",
+                "Scope": "self"
+            },
+			"Parameters":
+				[]
+			}
+			],
+		"Actions": [
+            {
+                "Arguments": {
+                    "Callback": {
+                        "Arguments": {
+                            "Callback": {
+                                "Arguments": {
+                                    "Scope": "my_board",
+                                    "Target": "targeted",
+                                    "To": "deck",
+                                    "Callback": {
+                                         "Method": "e_target_card",
+                                            "Arguments": {
+                                                "Scope": "op_frontline",
+                                                "Message": "Bounce an Opponent Character with <= 3000 BP!",
+                                                "Optional": true,
+                                                "Requirements": ["battle_points<=3000", "my_card.cardType=Character"],
+                                                "Callback": {
+                                                    "Method": "e_move_card",
+                                                    "Arguments": {
+                                                        "Scope": "op_frontline",
+                                                        "Target": "targeted", 
+                                                        "To": "hand"
+                                                        }
+                                                        }
+                                         }
+                                    }
+                                },
+                                "Method": "e_move_card"
+                            },
+                            "Message": "Place a card on top of your deck!",
+                            "Optional": true,
+                            "Scope": "my_hand"
+                        },
+                        "Method": "e_target_card"
+                    },
+                    "Scope": "my_board",
+                    "Value": 1
+                },
+                "Method": "e_draw_card"
+            }
+        ]
+	},
+    {
+        "Actions": [
+            {
+            "Method": "e_target_card",
+            "Arguments": {
+                "Scope": "op_frontline",
+                "Message": "Bounce an Opponent Character with <= 3500 BP!",
+                "Optional": true,
+                "Requirements": "battle_points<=3500",
+                "Callback": {
+                    "Method": "e_move_card",
+                    "Arguments": {
+                        "Scope": "op_frontline",
+                        "Target": "targeted", 
+                        "To": "hand"
+                        }
+                        }
+                }
+            }
+        ],
+        "Conditions": [
+            {
+                "Parameters": [
+                    {
+                    "Parameter": "location_has_card_with",
+                    "Arguments": [{
+                            "Scope": "op_frontline", 
+                            "Requirements": ["battle_points<=3500", "my_card.cardType=Character"]
+                        }],
+                    "Scope": "my_board",
+                    "Value": "1",
+                    "Type": "method",
+                    "Compare": ">=",
+                    "Compare_mode": "once"
+                    }
+                ],
+                "Trigger": {
+                    "Name": "_t_card_triggered",
+                    "Scope": "self"
+                }
+            }
+        ],
+        "Type": "Trigger"
+    }
+	]
+}

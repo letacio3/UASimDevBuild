@@ -1,0 +1,71 @@
+{
+    "Card": "BLC-1-058",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Property": "battle_points",
+                                        "Scope": "my_board",
+                                        "Target": "targeted",
+                                        "Until": {
+                                            "Scope": "my_board",
+                                            "Trigger": "_on_end_phase_start"
+                                        },
+                                        "Value": "+1000"
+                                    },
+                                    "Method": "e_buff"
+                                },
+                                "Message": "Choose a character to gain +1000 BP!",
+                                "Optional": true,
+                                "Requirements": [
+                                    "my_card.cardType=Character"
+                                ],
+                                "Scope": "my_board",
+                                "Self_target": "no",
+                                "Value": "temp_target"
+                            },
+                            "Method": "e_target_card"
+                        },
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "Value": "card.state.RESTED"
+                    },
+                    "Method": "e_switch_card_state",
+                    "Scope": "my_board"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_state",
+                            "Scope": "self",
+                            "Value": "card.state.ACTIVE"
+                        },
+                        {
+                            "Compare": "=",
+                            "Compare_mode": "once",
+                            "Parameter": "my_game_state",
+                            "Scope": "my_board",
+                            "Value": "GamePhase.MAIN_PHASE"
+                        }
+                    ],
+                    "Trigger": {
+                        "Name": "_t_activate",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Location": "Board",
+            "State": "Disabled",
+            "Type": "Activate"
+        }
+    ]
+}

@@ -1,0 +1,187 @@
+{
+    "Card": "HTR-1-102",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Callback": {
+                                    "Arguments": {
+                                        "Scope": "my_board",
+                                        "Target": "self"
+                                    },
+                                    "Method": "e_raid"
+                                },
+                                "Compare": ">=",
+                                "Compare_mode": "once",
+                                "Parameter": "energy_generated_count",
+                                "Scope": "my_board",
+                                "Target": "self",
+                                "Value": 5
+                            },
+                            "Method": "e_test_condition"
+                        },
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "To": "hand"
+                    },
+                    "Method": "e_move_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Property": "battle_points",
+                        "Scope": "my_board",
+                        "Target": [
+                            5,
+                            0
+                        ],
+                        "Until": {
+                            "Scope": "my_board",
+                            "Trigger": "_on_end_phase_start"
+                        },
+                        "Value": "+1000"
+                    },
+                    "Method": "e_buff"
+                },
+                {
+                    "Arguments": {
+                        "Property": "battle_points",
+                        "Scope": "my_board",
+                        "Target": [
+                            5,
+                            1
+                        ],
+                        "Until": {
+                            "Scope": "my_board",
+                            "Trigger": "_on_end_phase_start"
+                        },
+                        "Value": "+1000"
+                    },
+                    "Method": "e_buff"
+                },
+                {
+                    "Arguments": {
+                        "Property": "battle_points",
+                        "Scope": "my_board",
+                        "Target": [
+                            5,
+                            2
+                        ],
+                        "Until": {
+                            "Scope": "my_board",
+                            "Trigger": "_on_end_phase_start"
+                        },
+                        "Value": "+1000"
+                    },
+                    "Method": "e_buff"
+                },
+                {
+                    "Arguments": {
+                        "Property": "battle_points",
+                        "Scope": "my_board",
+                        "Target": [
+                            5,
+                            3
+                        ],
+                        "Until": {
+                            "Scope": "my_board",
+                            "Trigger": "_on_end_phase_start"
+                        },
+                        "Value": "+1000"
+                    },
+                    "Method": "e_buff"
+                },
+                {
+                    "Arguments": {
+                        "Property": "battle_points",
+                        "Scope": "my_board",
+                        "Target": [
+                            6,
+                            0
+                        ],
+                        "Until": {
+                            "Scope": "my_board",
+                            "Trigger": "_on_end_phase_start"
+                        },
+                        "Value": "+1000"
+                    },
+                    "Method": "e_buff"
+                },
+                {
+                    "Arguments": {
+                        "Property": "battle_points",
+                        "Scope": "my_board",
+                        "Target": [
+                            6,
+                            1
+                        ],
+                        "Until": {
+                            "Scope": "my_board",
+                            "Trigger": "_on_end_phase_start"
+                        },
+                        "Value": "+1000"
+                    },
+                    "Method": "e_buff"
+                },
+                {
+                    "Arguments": {
+                        "Property": "battle_points",
+                        "Scope": "my_board",
+                        "Target": [
+                            6,
+                            2
+                        ],
+                        "Until": {
+                            "Scope": "my_board",
+                            "Trigger": "_on_end_phase_start"
+                        },
+                        "Value": "+1000"
+                    },
+                    "Method": "e_buff"
+                },
+                {
+                    "Arguments": {
+                        "Property": "battle_points",
+                        "Scope": "my_board",
+                        "Target": [
+                            6,
+                            3
+                        ],
+                        "Until": {
+                            "Scope": "my_board",
+                            "Trigger": "_on_end_phase_start"
+                        },
+                        "Value": "+1000"
+                    },
+                    "Method": "e_buff"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

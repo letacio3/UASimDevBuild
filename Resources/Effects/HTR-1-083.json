@@ -1,0 +1,45 @@
+{
+    "Card": "HTR-1-083",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Property": "battle_points",
+                                "Scope": "op_board",
+                                "Target": "targeted",
+                                "Until": {
+                                    "Scope": "my_board",
+                                    "Trigger": "_on_end_phase_start"
+                                },
+                                "Value": -1000
+                            },
+                            "Method": "e_buff"
+                        },
+                        "Message": "Give -1000 BP to an Opponent Character with >= 1500 BP!",
+                        "Optional": true,
+                        "Requirements": [
+                            "battle_points>=1500",
+                            "my_card.cardType=Character"
+                        ],
+                        "Scope": "op_board",
+                        "Self_target": "no"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

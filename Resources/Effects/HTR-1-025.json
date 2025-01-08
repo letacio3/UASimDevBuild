@@ -1,0 +1,137 @@
+{
+    "Card": "HTR1-025",
+    "Effects": [
+        {
+            "Type": "Activate",
+            "State": "Disabled",
+            "Location": "Board",
+            "Conditions": [
+                {
+                "Trigger": {
+                    "Name": "_t_activate",
+                    "Scope": "self"
+                },
+                "Parameters":
+                    [{
+                    "Parameter": "once_per_turn",
+                    "Scope": "self",
+                    "Value": "0",
+                    "Compare": "=",
+                    "Compare_mode": "once"
+                    },
+                    {
+                    "Parameter": "location",
+                    "Scope": "self",
+                    "Value": "card.CardLocation.FRONT_LINE",
+                    "Compare": "=",
+                    "Compare_mode": "once"
+                    },
+                    {
+                    "Parameter": "location_has_card_with",
+                    "Arguments": [{
+                        "Scope": "my_deck"
+                    }],
+                    "Scope": "my_board",
+                    "Value": "1",
+                    "Type": "method",
+                    "Compare": ">=",
+                    "Compare_mode": "once"
+                    },
+                    {
+                    "Parameter": "my_game_state",
+                    "Scope": "my_board",
+                    "Value": "GamePhase.MAIN_PHASE",
+                    "Compare": "=",
+                    "Compare_mode": "once"
+                    }]
+                }
+                ],
+            "Actions": [
+                {  
+                "Method": "e_buff",
+                "Arguments": {
+                    "Scope": "my_board",
+                    "Target": "self",
+                    "Property": "once_per_turn",
+                    "Value": 1,
+                    "Until": {
+                    "Trigger": "_on_end_phase_start",
+                    "Scope": "my_board"
+                    },
+                    "Callback": {
+                        "Method": "e_reveal_card",
+                        "Arguments": {
+                            "Scope": "my_board",
+                            "Target": [0, -1],
+                            "Callback": {
+                                "Method": "e_test_condition",
+                                "Arguments": {
+                                    "Parameter": "ecost",
+                                    "Scope": "my_board",
+                                    "Target": "targeted",
+                                    "Value": "2",
+                                    "Compare": ">=",
+                                    "Compare_mode": "once",
+                                    "Callback":{
+                                        "Method": "e_target_card",
+                                        "Arguments": {
+                                            "Scope": "op_frontline",
+                                            "Message": "-1000 BP to an Opponent Character in FL with >= 1500 BP!",
+                                            "Optional": true,
+                                            "Cancel_continue": true,
+                                            "Requirements": "battle_points>=1500",
+                                            "Callback": {
+                                                "Method": "e_buff",
+                                                "Arguments": {
+                                                    "Scope": "op_board",
+                                                    "Target": "targeted",
+                                                    "Property": "battle_points",
+                                                    "Value": "-1000",
+                                                    "Until": {
+                                                        "Trigger": "_on_end_phase_start",
+                                                        "Scope": "my_board"
+                                            }
+                                        }	
+                                    }
+                                }
+                            }
+                                
+                        }}}
+                    }
+                }
+                            
+                },
+                {
+                "Method": "e_look_top_and_move",
+                "Arguments": {
+                    "Scope": "my_board",
+                    "Destination": "my_deck",
+                    "Choose": "self",
+                    "Order": [0,-1],
+                    "Value": 1
+                }}
+            ]
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Value": 1
+                    },
+                    "Method": "e_draw_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }
+    ]
+}

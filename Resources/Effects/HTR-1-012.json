@@ -1,0 +1,96 @@
+{
+    "Card": "HTR1-012",
+    "Effects": [
+        {
+            "Type": "Action",
+            "Conditions": [
+                {
+                "Trigger": {
+                    "Name": "_t_when_played",
+                    "Scope": "self"
+                },
+                "Parameters":
+                    [
+                    {
+                    "Parameter": "get_lowest_bp",
+                    "Arguments": [{
+                        "Scope": "op_board", 
+                        "Requirements": ["my_card.cardType=Character"]
+                    }],
+                    "Scope": "my_board",
+                    "Value": "temp_min_bp",
+                    "Type": "method",
+                    "Store": true,
+                    "Compare": "none"
+                    },
+                    {
+                    "Parameter": "location_has_card_with",
+                    "Arguments": [{
+                        "Scope": "my_hand", 
+                        "Requirements": ["tag=Specified Slot"],
+                        "Unique-names": true
+                    }],
+                    "Scope": "my_board",
+                    "Value": "temp_min_bp",
+                    "Scale": 0.001,
+                    "Type": "method",
+                    "Compare": ">=",
+                    "Compare_mode": "once"
+                    }]
+                }
+                ],
+            "Actions": [
+                {
+                    "Method": "e_target_card",
+                    "Arguments": {
+                        "Scope": "op_board",
+                        "Message": "Please target a card on your opponent board to sideline!",
+                        "Optional": true,
+                        "Aux": {
+                            "Method": "location_has_card_with",
+                            "Arguments": {
+                                "Scope": "my_hand", 
+                                "Requirements": ["tag=Specified Slot"],
+                                "Unique-names": true
+                                },
+                            "Scope": "my_board",
+                            "Store": true,
+                            "Value": "temp_max_bp",
+                            "Scale": 1000
+                        },
+                        "Requirements": "battle_points<=temp_max_bp",
+                        "Callback": {
+                            "Method": "e_move_card",
+                            "Arguments": {
+                                "Scope": "op_board",
+                                "Target": "targeted", 
+                                "To": "sideline"
+                                }
+                                }
+                        }
+                }
+                ]
+        },
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Value": 1
+                    },
+                    "Method": "e_draw_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_card_triggered",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Trigger"
+        }
+    ]
+}

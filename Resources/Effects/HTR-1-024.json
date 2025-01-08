@@ -1,0 +1,48 @@
+{
+	"Card": "HTR-1-024",
+	"Effects": [{
+		"Type": "Action",
+		"Conditions": [
+			{
+			"Trigger": {
+				"Name": "_t_when_played",
+				"Scope": "self"
+			},
+			"Parameters":
+				[]
+			}
+			],
+		"Actions": [
+			{
+            "Method": "e_look_top_and_move",
+            "Arguments": {
+                "Scope": "my_board",
+                "Destination": "my_deck",
+                "Choose": "No",
+                "Order": [0],
+                "Value": 4,
+                "Draw": {
+                    "Value": 1,
+                    "Tags": ["The Bomber"],
+                    "Names": ["Risky Dice"],
+                    "Callback": {
+					"Method": "e_target_card",
+					"Arguments": {
+						"Scope": "my_hand",
+						"Message": "Please discard a card!",
+						"Callback": {
+							"Method": "e_move_card",
+							"Arguments": {
+								"Scope": "my_board",
+								"Target": "targeted", 
+								"To": "sideline"}
+								}
+						}
+                    }
+                }
+                }
+			}
+			]
+	},{}
+	]
+}

@@ -1,0 +1,61 @@
+{
+    "Card": "HTR-1-055",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Action": {
+                                    "Arguments": {
+                                        "Callback": {
+                                            "Arguments": {
+                                                "Scope": "my_board",
+                                                "Target": "targeted",
+                                                "To": "hand"
+                                            },
+                                            "Method": "e_move_card"
+                                        },
+                                        "Message": "Target a Zoldyck Family card from your Sideline!",
+                                        "Optional": true,
+                                        "Requirements": ["tag=Zoldyck Family","my_card.cardName!=Silva"],
+                                        "Scope": "my_sideline",
+                                        "Self_target": "no"
+                                    },
+                                    "Method": "e_target_card"
+                                },
+                                "Card_trigger": true,
+                                "Scope": "op_board",
+                                "Target": "targeted",
+                                "Timeout": {
+                                    "Scope": "self",
+                                    "Trigger": "_on_end_phase_start"
+                                },
+                                "Trigger": "_t_when_sidelined"
+                            },
+                            "Method": "e_program_action"
+                        },
+                        "Message": "Choose a character",
+                        "Optional": true,
+                        "Scope": "op_frontline",
+                        "Self_target": "no",
+                        "Store": true,
+                        "Value": "temp_target"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

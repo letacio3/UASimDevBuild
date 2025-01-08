@@ -1,0 +1,54 @@
+{
+    "Card": "HTR-1-087",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                    "Choices": [
+                        {
+                            "Arguments": {
+                                "Property": "battle_points",
+                                "Scope": "my_board",
+                                "Target": "self",
+                                "Until": {
+                                    "Scope": "my_board",
+                                    "Trigger": "_on_end_phase_start"
+                                },
+                                "Value": "+1000"
+                            },
+                            "Message": "Gain 1000BP",
+                            "Method": "e_buff"
+                        },
+                        {
+                            "Arguments": {
+                                "Property": "damage",
+                                "Scope": "my_board",
+                                "Target": "self",
+                                "Until": {
+                                    "Scope": "my_board",
+                                    "Trigger": "_on_end_phase_start"
+                                },
+                                "Value": "+1"
+                            },
+                            "Message": "Gain Damage 2",
+                            "Method": "e_buff"
+                        }
+                    ],
+                    "Scope": "my_board"},
+                    "Method": "e_choose"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_attacking",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

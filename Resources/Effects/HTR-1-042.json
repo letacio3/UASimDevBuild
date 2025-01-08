@@ -1,0 +1,45 @@
+{
+    "Card": "HTR1-042",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Property": "cant_block",
+                                "Scope": "op_board",
+                                "Target": "targeted",
+                                "Until": {
+                                    "Scope": "my_board",
+                                    "Trigger": "_on_end_phase_start"
+                                },
+                                "Value": 1
+                            },
+                            "Method": "e_buff"
+                        },
+                        "Message": "Give Can't block to an opponent character!",
+                        "Optional": true,
+                        "Requirements": [
+                            "my_card.cardType=Character"
+                        ],
+                        "Scope": "op_board",
+                        "Self_target": "no",
+                        "Value": "temp_target"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        }
+    ]
+}

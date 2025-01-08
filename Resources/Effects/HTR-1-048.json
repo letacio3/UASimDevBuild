@@ -1,0 +1,37 @@
+{
+    "Card": "HTR1-048",
+    "Effects": [
+        {
+            "Actions": [
+                {
+                    "Arguments": {
+                        "Callback": {
+                            "Arguments": {
+                                "Scope": "my_board",
+                                "Target": "targeted",
+                                "To": "hand"
+                            },
+                            "Method": "e_move_card"
+                        },
+                        "Message": "Please target a card on your board with Energy Cost <= 1!",
+                        "Requirements": "ecost<=1",
+                        "Scope": "my_board",
+                        "Self_target": "targetless"
+                    },
+                    "Method": "e_target_card"
+                }
+            ],
+            "Conditions": [
+                {
+                    "Parameters": [],
+                    "Trigger": {
+                        "Name": "_t_when_played",
+                        "Scope": "self"
+                    }
+                }
+            ],
+            "Type": "Action"
+        },
+        []
+    ]
+}

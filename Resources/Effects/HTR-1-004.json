@@ -1,0 +1,104 @@
+{ 
+	"Card": "HTR-1-004",
+	"Effects": [{
+		"Type": "Activate",
+        "State": "Disabled",
+        "Location": "Board",
+		"Conditions": [
+			{
+			"Trigger": {
+				"Name": "_t_activate",
+				"Scope": "self"
+			},
+			"Parameters":
+				[{
+				"Parameter": "my_game_state",
+				"Scope": "my_board",
+				"Value": "GamePhase.MAIN_PHASE",
+				"Compare": "=",
+				"Compare_mode": "once"
+				},
+				{
+				"Parameter": "my_state",
+				"Scope": "self",
+				"Value": "card.state.ACTIVE",
+				"Compare": "=",
+				"Compare_mode": "once"
+				}]
+			}
+			],
+		"Actions": [
+			{
+			"Method": "e_switch_card_state",
+			"Arguments": {
+				"Scope": "self",
+				"Value": "card.state.RESTED",
+				"Callback": {
+				"Method": "e_look_top_and_move",
+				"Arguments": {
+					"Scope": "my_board",
+					"Destination": "my_deck",
+					"Choose": "self",
+					"Order": [0,-1],
+					"Value": 1
+					}
+				}
+				}
+			}
+			]
+	},
+	{
+		"Type": "Trigger",
+		"Conditions": [
+			{
+			"Trigger": {
+				"Name": "_t_card_triggered",
+				"Scope": "self"
+			},
+			"Parameters":
+				[{
+				"Parameter": "number_of_cards",
+				"Scope": "my_board",
+				"Arguments": ["my_board"],
+				"Type": "method",
+				"Value": "1",
+				"Compare": ">=",
+				"Compare_mode": "once"
+				}]
+			}
+			],
+		"Actions": [
+			{
+			"Method": "e_target_card",
+			"Arguments": {
+				"Scope": "my_board",
+				"Self_target": "no",
+				"Message": "Choose a card to switch to active and give +3000 BP!",
+				"Requirements": "",
+				"Callback": {
+					"Method": "e_switch_card_state",
+					"Arguments": {
+						"Scope": "my_board",
+						"Target": "targeted",
+						"Value": "card.state.ACTIVE",
+						"Callback": {
+							"Method": "e_buff",
+							"Arguments": {
+								"Scope": "my_board",
+								"Target": "targeted",
+								"Property": "battle_points",
+								"Value": "+3000",
+								"Until": {
+									"Trigger": "_on_end_phase_start",
+									"Scope": "op_board"
+								}
+							}	
+						}
+					}
+				}
+			}
+			}
+			]
+		}
+	]
+}

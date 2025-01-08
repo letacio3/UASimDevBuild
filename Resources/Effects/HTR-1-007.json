@@ -1,0 +1,118 @@
+{ 
+	"Card": "HTR-1-007",
+	"Effects": [{
+		"Type": "Activate",
+        "State": "Disabled",
+        "Location": "Board",
+		"Conditions": [
+			{
+			"Trigger": {
+				"Name": "_t_activate",
+				"Scope": "self"
+			},
+			"Parameters":
+				[{
+                "Parameter": "once_per_turn",
+                "Scope": "self",
+                "Value": "0",
+                "Compare": "=",
+                "Compare_mode": "once"
+                },
+                {
+				"Parameter": "location",
+				"Scope": "self",
+				"Value": "card.CardLocation.FRONT_LINE",
+				"Compare": "=",
+				"Compare_mode": "once"
+				},
+				{
+				"Parameter": "count_unique_tags_on_board_and_hand",
+                "Arguments": ["Specified Slot"],
+				"Scope": "my_board",
+				"Type": "method",
+				"Value": "3",
+				"Compare": ">=",
+				"Compare_mode": "once"
+				},
+				{
+				"Parameter": "my_game_state",
+				"Scope": "my_board",
+				"Value": "GamePhase.MAIN_PHASE",
+				"Compare": "=",
+				"Compare_mode": "once"
+				}]
+			}
+			],
+		"Actions": [
+			{
+			"Method": "e_draw_card",
+			"Arguments": {
+				"Scope": "my_board",
+				"Value": 1,
+                "Callback":{
+                    "Method": "e_buff",
+                    "Arguments": {
+                        "Scope": "my_board",
+                        "Target": "self",
+                        "Property": "once_per_turn",
+                        "Value": 1,
+                        "Until": {
+                        "Trigger": "_on_end_phase_start",
+                        "Scope": "my_board"
+                        },
+                        "Callback": {
+                            "Method": "e_test_condition",
+                            "Arguments": {
+                                "Parameter": "count_unique_tags_on_board_and_hand",
+                                "Arguments": ["Specified Slot"],
+                                "Scope": "my_board",
+                                "Type": "method",
+                                "Value": "4",
+                                "Compare": ">=",
+                                "Compare_mode": "once",
+								"Target": "targeted",
+                                "Callback":{
+                                    "Method": "e_buff",
+                                    "Arguments": {
+                                        "Scope": "my_board",
+                                        "Target": "targeted",
+                                        "Property": "impact",
+                                        "Value": "1",
+                                        "Until": {
+                                            "Trigger": "_on_end_phase_start",
+                                            "Scope": "my_board"
+                                        }
+                                    }	
+                                }
+                            }
+                        }
+                        }
+                    }
+                    }
+			}
+			]
+	},
+	{
+		"Type": "Trigger",
+		"Conditions": [
+			{
+			"Trigger": {
+				"Name": "_t_card_triggered",
+				"Scope": "self"
+			},
+			"Parameters":
+				[]
+			}
+			],
+		"Actions": [
+			{
+			"Method": "e_move_card",
+            "Arguments": {
+                "Scope": "my_board",
+                "Target": "self", 
+                "To": "hand"}
+			}
+			]
+		}
+	]
+}
